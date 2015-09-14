@@ -7,31 +7,34 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        var camera = GMSCameraPosition.cameraWithLatitude(-33.86,
+            longitude: 151.20, zoom: 6)
+        var mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+        mapView.myLocationEnabled = true
+        self.view = mapView
+        
+        var marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(-33.86, 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapView
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
             self.clearsSelectionOnViewWillAppear = false
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        self.navigationItem.rightBarButtonItem = addButton
-        if let split = self.splitViewController {
-            let controllers = split.viewControllers
-            self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
     }
 
