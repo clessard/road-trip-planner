@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0F6679E0-037D-4EFE-9F2D-D52E2522549E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>OnTheWay</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>4868C0821C3D1CB3D78938D2808886F97B6E9BA9</key>
+		<string>https://github.com/clessard/road-trip-planner.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>OnTheWay/OnTheWay.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>4868C0821C3D1CB3D78938D2808886F97B6E9BA9</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/clessard/road-trip-planner.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>4868C0821C3D1CB3D78938D2808886F97B6E9BA9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>4868C0821C3D1CB3D78938D2808886F97B6E9BA9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>road-trip-planner</string>
+		</dict>
+	</array>
+</dict>
+</plist>

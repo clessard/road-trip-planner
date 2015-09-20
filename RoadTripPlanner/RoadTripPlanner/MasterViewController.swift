@@ -95,6 +95,31 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    // The code snippet below shows how to create a GMSPlacePicker
+    // centered on Sydney, and output details of a selected place.
+    @IBAction func pickPlace(sender: UIBarButtonItem) {
+        let center = CLLocationCoordinate2DMake(51.5108396, -0.0922251)
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        var placePicker = GMSPlacePicker(config: config)
+        
+        placePicker?.pickPlaceWithCallback({ (place: GMSPlace?, error: NSError?) -> Void in
+            if let error = error {
+                println("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let place = place {
+                println("Place name \(place.name)")
+                println("Place address \(place.formattedAddress)")
+                println("Place attributions \(place.attributions)")
+            } else {
+                println("No place selected")
+            }
+        })
+    }
 
 }
 
