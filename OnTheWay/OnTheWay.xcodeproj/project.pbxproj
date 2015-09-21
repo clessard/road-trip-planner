@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0740BB2D1BAF59C60016729A /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0740BB2C1BAF59C60016729A /* ViewController2.swift */; };
 		0751D94F1BAF46EA00BA91B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751D94E1BAF46EA00BA91B9 /* AppDelegate.swift */; };
 		0751D9511BAF46EA00BA91B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751D9501BAF46EA00BA91B9 /* ViewController.swift */; };
 		0751D9541BAF46EA00BA91B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0751D9521BAF46EA00BA91B9 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0740BB2C1BAF59C60016729A /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		0751D9491BAF46EA00BA91B9 /* OnTheWay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheWay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0751D94D1BAF46EA00BA91B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0751D94E1BAF46EA00BA91B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				0751D94E1BAF46EA00BA91B9 /* AppDelegate.swift */,
 				0751D9501BAF46EA00BA91B9 /* ViewController.swift */,
 				0751D9521BAF46EA00BA91B9 /* Main.storyboard */,
+				0740BB2C1BAF59C60016729A /* ViewController2.swift */,
 				0751D9551BAF46EA00BA91B9 /* Images.xcassets */,
 				0751D9571BAF46EA00BA91B9 /* LaunchScreen.xib */,
 				0751D94C1BAF46EA00BA91B9 /* Supporting Files */,
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0751D9511BAF46EA00BA91B9 /* ViewController.swift in Sources */,
+				0740BB2D1BAF59C60016729A /* ViewController2.swift in Sources */,
 				0751D94F1BAF46EA00BA91B9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
