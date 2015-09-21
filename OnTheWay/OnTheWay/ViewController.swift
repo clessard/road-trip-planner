@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  OnTheWay
 //
 //  Created by Carli Lessard on 9/20/15.

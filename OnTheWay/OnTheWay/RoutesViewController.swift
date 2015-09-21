@@ -1,5 +1,5 @@
 //
-//  ViewController2ViewController.swift
+//  RoutesViewController.swift
 //  OnTheWay
 //
 //  Created by Carli Lessard on 9/20/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
+class RoutesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
