@@ -34,7 +34,7 @@ class StartViewController: UIViewController {
             //println("preparing for segue");
             var svc = segue.destinationViewController as! ViewController;
             println(EnterStart.text);
-            svc.address = EnterStart.text;
+            svc.startAddress = EnterStart.text;
         }
     }
     

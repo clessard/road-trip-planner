@@ -12,24 +12,70 @@ import SwiftyJSON
 
 class ViewController: UIViewController {
     
-    var latitude = 0.0
-    var longitude = 0.0
-    var address = ""
+    var startLat = 0.0
+    var startLng = 0.0
+    
+    var stopLat = 0.0
+    var stopLng = 0.0
+    
+    var wayPointLat = 0.0
+    var wayPointLng = 0.0
+    
+    
+    var startAddress = ""
+    var stopAddress = ""
+    var wayPointAddress = ""
+    
+    
+    /*
+    func getJSONURL(address: String) -> String {
+        
+        let modifiedAddress = String(map(address.generate()) {
+            $0 == " " ? "%" : $0
+            })
+        
+        let jsonString = "https://maps.googleapis.com/maps/api/geocode/json?address=" + modifiedAddress
+        println(jsonString)
+        
+        var jsonRequest = NSURL(string: jsonString)
+        println(jsonRequest)
+    }
+    
+    func setLatandLong(jsonRequest: NSURL, typeOfAddress: String) {
+        var jsonData = NSData(contentsOfURL: jsonRequest!)
+        let json = JSON(data: jsonData!)
+        if(tyepOfAddress == "start") {
+            
+        }
+        self.latitude = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
+        self.longitude = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+    }
+*/
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fixedAddress = String(map(self.address.generate()) {
+        /*
+        let modifiedStart = String(map(self.startAddress.generate()) {
+            $0 == " " ? "%" : $0
+            })
+        let modifiedStop = String(map(self.stopAddress.generate()) {
+            $0 == " " ? "%" : $0
+            })
+        let modifiedWayPoint = String(map(self.wayPointAddress.generate()) {
             $0 == " " ? "%" : $0
             })
         
         var jsonString = "https://maps.googleapis.com/maps/api/geocode/json?address=" + fixedAddress
         
         println(jsonString)
+
         
         var jsonRequest = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=" + fixedAddress)
         
         println(jsonRequest)
+
+*/
         
         //var jsonData = NSData(contentsOfURL: jsonRequest!)
         
@@ -53,18 +99,18 @@ class ViewController: UIViewController {
         println(json["results"][0]["geometry"]["location"]["lat"])
         println(json["results"][0]["geometry"]["location"]["lng"])
         
-        self.latitude = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-        self.longitude = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+        self.startLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
+        self.startLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         
         //println(latitudePassed)
-        var camera = GMSCameraPosition.cameraWithLatitude(self.latitude,
-            longitude: self.longitude, zoom: 6)
+        var camera = GMSCameraPosition.cameraWithLatitude(self.startLat,
+            longitude: self.startLng, zoom: 6)
         var mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.myLocationEnabled = true
         self.view = mapView
         
         var marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(self.latitude, self.longitude)
+        marker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
         marker.title = "Sydney"
         marker.snippet = "Australia"
         marker.map = mapView
