@@ -27,8 +27,8 @@ class ViewController: UIViewController {
     var wayPointAddress = ""
     
     
-    /*
-    func getJSONURL(address: String) -> String {
+    
+    func getJSONURL(address: String) -> NSURL {
         
         let modifiedAddress = String(map(address.generate()) {
             $0 == " " ? "%" : $0
@@ -39,18 +39,32 @@ class ViewController: UIViewController {
         
         var jsonRequest = NSURL(string: jsonString)
         println(jsonRequest)
+        return jsonRequest
     }
     
     func setLatandLong(jsonRequest: NSURL, typeOfAddress: String) {
-        var jsonData = NSData(contentsOfURL: jsonRequest!)
+        var jsonData = NSData(contentsOfURL: jsonRequest)
         let json = JSON(data: jsonData!)
-        if(tyepOfAddress == "start") {
-            
+        if(typeOfAddress == "start") {
+            self.startLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
+            self.startLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }
-        self.latitude = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-        self.longitude = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+        if(typeOfAddress == "stop") {
+            self.stopLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
+            self.stopLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+        }
+        else{
+            self.wayPointLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
+            self.wayPointLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+        }
     }
-*/
+
+    
+    
+    
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -63,6 +63,15 @@
                                     </segue>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue0-fh-OvK">
+                                <rect key="frame" x="267" y="361" width="56" height="30"/>
+                                <state key="normal" title="GetMap">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapSegue" id="ktR-61-LQA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -78,6 +87,11 @@
                             <constraint firstItem="Dk8-oN-RdM" firstAttribute="top" secondItem="AO8-iY-fdG" secondAttribute="bottom" constant="8" symbolic="YES" id="weZ-VF-bzh"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="EnterFinish" destination="iGb-EF-ieZ" id="mXk-lM-3SQ"/>
+                        <outlet property="EnterStart" destination="AO8-iY-fdG" id="rMK-xZ-BjJ"/>
+                        <outlet property="EnterWayPoint" destination="Dk8-oN-RdM" id="ddi-GL-Xak"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sii-an-U7K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -132,7 +146,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qti-ej-p9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1828" y="199"/>
+            <point key="canvasLocation" x="1830" y="187"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ktR-61-LQA"/>
+    </inferredMetricsTieBreakers>
 </document>
