@@ -10,6 +10,9 @@ import UIKit
 
 class StartViewController: UIViewController {
 
+    @IBOutlet weak var EnterStart: UITextField!
+    @IBOutlet weak var EnterWayPoint: UITextField!
+    @IBOutlet weak var EnterFinish: UITextField!
     // MARK: Properties
     //@IBOutlet weak var startTextField: UITextField!
     //@IBOutlet weak var waypointTextField: UITextField!
@@ -24,6 +27,15 @@ class StartViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "mapSegue") {
+            //println("preparing for segue");
+            var svc = segue.destinationViewController as! ViewController;
+            println(EnterStart.text);
+            svc.address = EnterStart.text;
+        }
     }
     
     // MARK: Actions
