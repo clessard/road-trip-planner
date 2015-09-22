@@ -35,6 +35,8 @@ class StartViewController: UIViewController {
             var svc = segue.destinationViewController as! ViewController;
             println(EnterStart.text);
             svc.startAddress = EnterStart.text;
+            svc.stopAddress = EnterFinish.text;
+            svc.wayPointAddress = EnterWayPoint.text;
         }
     }
     

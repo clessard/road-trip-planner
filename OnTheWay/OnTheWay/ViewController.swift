@@ -6,6 +6,16 @@
 //  Copyright (c) 2015 Carli Lessard. All rights reserved.
 //
 
+//Notes on Ellen's Code: You can now have a user input an address for start, stop, and midpoint and
+//                       the code will render these 3 point on a screen. Although the user input is 
+//                       woorking, there are other cases of hard cpding going on. Moving forward we
+//                       probably want to change this. Some instance of hard coding: zoom level, the
+//                       if cases in setLatandLong(). Additionally, the code is repetative and could
+//                       probably use more helper functions to make things cleaner. Also, the variable
+//                       naming for the end destination and the waypoint is inconsistent. We whould use
+//                       a common convention for variable (i think?)
+//Part of code from: http://stackoverflow.com/questions/28514622/convert-string-to-nsurl-is-return-nil-in-swift
+
 import UIKit
 import GoogleMaps
 import SwiftyJSON
@@ -26,22 +36,20 @@ class ViewController: UIViewController {
     var stopAddress = ""
     var wayPointAddress = ""
     
-    
-    
+    //helper function for viewDidLoad()
+    //takes in an address in string form and returns an NSURL that can be used to get a JSON file
     func getJSONURL(address: String) -> NSURL {
-        
-        let modifiedAddress = String(map(address.generate()) {
-            $0 == " " ? "%" : $0
-            })
-        
-        let jsonString = "https://maps.googleapis.com/maps/api/geocode/json?address=" + modifiedAddress
-        println(jsonString)
-        
-        var jsonRequest = NSURL(string: jsonString)
-        println(jsonRequest)
-        return jsonRequest
+        var url : NSString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)"
+        var urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        var searchURL : NSURL = NSURL(string: urlStr as String)!
+        println(searchURL)
+        return searchURL
     }
     
+    //helper function for viewDidLoad
+    //sets the latitude and longitude values for a certain destination
+    //takes in a NSURL and a string telling you what lat and long values to set
+    //gets and parses the correct JSON file
     func setLatandLong(jsonRequest: NSURL, typeOfAddress: String) {
         var jsonData = NSData(contentsOfURL: jsonRequest)
         let json = JSON(data: jsonData!)
@@ -53,144 +61,63 @@ class ViewController: UIViewController {
             self.stopLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
             self.stopLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }
-        else{
+        if(typeOfAddress == "wayPoint"){
             self.wayPointLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
             self.wayPointLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }
     }
 
-    
-    
-    
-    
-    
-    
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        /*
-        let modifiedStart = String(map(self.startAddress.generate()) {
-            $0 == " " ? "%" : $0
-            })
-        let modifiedStop = String(map(self.stopAddress.generate()) {
-            $0 == " " ? "%" : $0
-            })
-        let modifiedWayPoint = String(map(self.wayPointAddress.generate()) {
-            $0 == " " ? "%" : $0
-            })
-        
-        var jsonString = "https://maps.googleapis.com/maps/api/geocode/json?address=" + fixedAddress
-        
-        println(jsonString)
-
-        
-        var jsonRequest = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=" + fixedAddress)
-        
-        println(jsonRequest)
-
-*/
-        
-        //var jsonData = NSData(contentsOfURL: jsonRequest!)
-        
-        //let json = JSON(data: jsonData!)
-        
-        
-        
-        
-        
-        var address = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=225%20Joe%20English%20Rd%20New%20Boston%20NH")
-        
-        var jsonData = NSData(contentsOfURL: address!)
-        
-        let json = JSON(data: jsonData!)
-        
-        
-        
-        
-        //println(json)
-        
-        println(json["results"][0]["geometry"]["location"]["lat"])
-        println(json["results"][0]["geometry"]["location"]["lng"])
-        
-        self.startLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-        self.startLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
-        
-        //println(latitudePassed)
+    //helper function for viewDidLoad()
+    //creates a map with three points on it
+    func createMap() {
         var camera = GMSCameraPosition.cameraWithLatitude(self.startLat,
-            longitude: self.startLng, zoom: 6)
+            longitude: self.startLng, zoom: 13)
         var mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.myLocationEnabled = true
         self.view = mapView
         
-        var marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
-        marker.title = "Sydney"
-        marker.snippet = "Australia"
-        marker.map = mapView
-    
-    
-    //var latitudePassed = 0.0
-    //var longitude = 0.0
-    
-    
-    /*
-    
-    override func viewDidLoad() {
-    println("entered map")
-    super.viewDidLoad()
-    
-    /*
-    var address = NSURL(string: "https://maps.googleapis.com/maps/api/geocode/json?address=225%20Joe%20English%20Rd%20New%20Boston%20NH")
-    
-    var jsonData = NSData(contentsOfURL: address!)
-    
-    let json = JSON(data: jsonData!)
-    
-    //println(json)
-    
-    println(json["results"][0]["geometry"]["location"]["lat"])
-    println(json["results"][0]["geometry"]["location"]["lng"])
-    
-    self.latitudePassed = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-    self.longitude = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
-    
-    
-    
-    var camera = GMSCameraPosition.cameraWithLatitude(self.latitudePassed, longitude: self.longitude, zoom: 12)
-    var mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-    self.view = mapView
-    
-    */
-    
-    println("get camera")
-    var camera = GMSCameraPosition.cameraWithLatitude(151,
-    longitude: -31, zoom: 6)
-    
-    println("get map")
-    var mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-    
-    
-    mapView.myLocationEnabled = true
-    self.view = mapView
-    
-    var marker = GMSMarker()
-    marker.position = CLLocationCoordinate2DMake(self.latitudePassed, self.longitude)
-    marker.title = "Sydney"
-    marker.snippet = "Australia"
-    marker.map = mapView
-    // Do any additional setup after loading the view, typically from a nib.
-    
-    
+        var startMarker = GMSMarker()
+        startMarker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
+        startMarker.title = "Start"
+        startMarker.map = mapView
+        
+        
+        var stopMarker = GMSMarker()
+        stopMarker.position = CLLocationCoordinate2DMake(self.stopLat, self.stopLng)
+        stopMarker.title = "End"
+        stopMarker.map = mapView
+        
+        var midMarker = GMSMarker()
+        midMarker.position = CLLocationCoordinate2DMake(self.wayPointLat, self.wayPointLng)
+        midMarker.title = "Middle Destination"
+        midMarker.map = mapView
+        
     }
-    */
+    
+    
+    
+    
+    
+    //renders the mpa on the screen based on user input
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        var startAddress = getJSONURL(self.startAddress)
+        var stopAddress = getJSONURL(self.stopAddress)
+        var midPointAddress = getJSONURL(wayPointAddress)
+        
+        setLatandLong(startAddress, typeOfAddress: "start")
+        setLatandLong(stopAddress, typeOfAddress: "stop")
+        setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
+
+        createMap()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
 }
 
