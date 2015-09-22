@@ -1,10 +1,13 @@
 PODS:
   - GoogleMaps (1.10.2)
+  - SwiftyJSON (2.2.1)
 
 DEPENDENCIES:
   - GoogleMaps
+  - SwiftyJSON (~> 2.2.1)
 
 SPEC CHECKSUMS:
   GoogleMaps: 5c92e599b07b0a2a9b367c5dd128edc629bddfea
+  SwiftyJSON: ae2d0a3d68025d136602a33c4ee215091ced3e33
 
 COCOAPODS: 0.38.2
