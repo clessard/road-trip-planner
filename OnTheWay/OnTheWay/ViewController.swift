@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Carli Lessard. All rights reserved.
 //
 
-//Notes on Ellen's Code: You can now have a user input an address for start, stop, and midpoint and
+// Notes on Ellen's Code: You can now have a user input an address for start, stop, and midpoint and
 //                       the code will render these 3 point on a screen. Although the user input is 
 //                       woorking, there are other cases of hard cpding going on. Moving forward we
 //                       probably want to change this. Some instance of hard coding: zoom level, the
@@ -57,11 +57,11 @@ class ViewController: UIViewController {
             self.startLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
             self.startLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }
-        if(typeOfAddress == "stop") {
+        else if(typeOfAddress == "stop") {
             self.stopLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
             self.stopLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }
-        if(typeOfAddress == "wayPoint"){
+        else{ //if(typeOfAddress == "wayPoint"){
             self.wayPointLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
             self.wayPointLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
         }

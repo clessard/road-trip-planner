@@ -13,10 +13,6 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterStart: UITextField!
     @IBOutlet weak var EnterWayPoint: UITextField!
     @IBOutlet weak var EnterFinish: UITextField!
-    // MARK: Properties
-    //@IBOutlet weak var startTextField: UITextField!
-    //@IBOutlet weak var waypointTextField: UITextField!
-    //@IBOutlet weak var finishTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +30,12 @@ class StartViewController: UIViewController {
             //println("preparing for segue");
             var svc = segue.destinationViewController as! ViewController;
             println(EnterStart.text);
+            svc.startAddress = EnterStart.text;
+            svc.stopAddress = EnterFinish.text;
+            svc.wayPointAddress = EnterWayPoint.text;
+        }
+        else if (segue.identifier == "routesSegue") {
+            var svc = segue.destinationViewController as! RoutesViewController;
             svc.startAddress = EnterStart.text;
             svc.stopAddress = EnterFinish.text;
             svc.wayPointAddress = EnterWayPoint.text;
