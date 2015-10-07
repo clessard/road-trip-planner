@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         let url : NSString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)"
         let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let searchURL : NSURL = NSURL(string: urlStr as String)!
-        print(searchURL)
+        print(searchURL, terminator: "")
         return searchURL
     }
     
@@ -75,18 +75,18 @@ class ViewController: UIViewController {
         let x = self.startLat - self.stopLat
         let y = self.startLng - self.stopLng
         var routeDist = sqrt(pow(x,2) + pow(y,2))
-        print(routeDist)
-        print(routeDist)
-        print(routeDist)
-        print(routeDist)
-        print((1/routeDist) * 7)
         
-        let camera = GMSCameraPosition.cameraWithLatitude(self.wayPointLat,
-            longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
+        let camera = GMSCameraPosition.cameraWithLatitude(self.startLat, longitude: self.startLng, zoom: 13)
+            //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
         let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.myLocationEnabled = true
         self.view = mapView
-        
+        /*
+        let currentMarker = GMSMarker()
+        currentMarker.position = CLLocationCoordinate2DMake(mapView.myLocation.coordinate.latitude,
+                                    mapView.myLocation.coordinate.longitude)
+        currentMarker.map = mapView
+        */
         let startMarker = GMSMarker()
         startMarker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
         startMarker.title = "Start"
@@ -287,10 +287,10 @@ class ViewController: UIViewController {
             var Path = [String]()
             var Added = [String]()
             for var i = 0; i < totalTime.count; ++i {
-                Path.append("Total distance of route: " + String(totalTime[i]))
-                Added.append("Distance added to original: " + String(timeAdded[i]))
+                Path.append("Total distance of route: " + String(stringInterpolationSegment: totalTime[i]))
+                Added.append("Distance added to original: " + String(stringInterpolationSegment: timeAdded[i]))
             }
-            print(Path)
+            print(Path, terminator: "")
             return (Path,Added)
         }
         
@@ -298,10 +298,6 @@ class ViewController: UIViewController {
         minimumPath.map = mapView
         
     }
-    
-    
-    
-    
     
     
     //renders the mpa on the screen based on user input

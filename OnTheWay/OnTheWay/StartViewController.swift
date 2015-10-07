@@ -28,17 +28,17 @@ class StartViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "mapSegue") {
             //println("preparing for segue");
-            var svc = segue.destinationViewController as! ViewController;
-            println(EnterStart.text);
-            svc.startAddress = EnterStart.text;
-            svc.stopAddress = EnterFinish.text;
-            svc.wayPointAddress = EnterWayPoint.text;
+            let svc = segue.destinationViewController as! ViewController;
+            print(EnterStart.text);
+            svc.startAddress = EnterStart.text!;
+            svc.stopAddress = EnterFinish.text!;
+            svc.wayPointAddress = EnterWayPoint.text!;
         }
         else if (segue.identifier == "routesSegue") {
-            var svc = segue.destinationViewController as! RoutesViewController;
-            svc.startAddress = EnterStart.text;
-            svc.stopAddress = EnterFinish.text;
-            svc.wayPointAddress = EnterWayPoint.text;
+            let svc = segue.destinationViewController as! RoutesViewController;
+            svc.startAddress = EnterStart.text!;
+            svc.stopAddress = EnterFinish.text!;
+            svc.wayPointAddress = EnterWayPoint.text!;
         }
     }
     
