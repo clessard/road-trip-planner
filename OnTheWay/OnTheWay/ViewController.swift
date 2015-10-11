@@ -20,7 +20,11 @@ import UIKit
 import GoogleMaps
 import SwiftyJSON
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
+    
+    @IBOutlet var mapView: GMSMapView!
+    
+    let locationManager = CLLocationManager()
     
     var startLat = 0.0
     var startLng = 0.0
@@ -42,7 +46,7 @@ class ViewController: UIViewController {
         let url : NSString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)"
         let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let searchURL : NSURL = NSURL(string: urlStr as String)!
-        print(searchURL, terminator: "")
+        //print(searchURL, terminator: "")
         return searchURL
     }
     
@@ -67,6 +71,20 @@ class ViewController: UIViewController {
         }
     }
     
+    /**
+    * Function used to get the current location of the phone
+    */
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse {
+            
+            locationManager.startUpdatingLocation()
+            
+            mapView.myLocationEnabled = true
+            mapView.settings.myLocationButton = true
+        }
+    }
+    
+
     //helper function for viewDidLoad()
     //creates a map with three points on it
     func createMap() {
@@ -78,15 +96,12 @@ class ViewController: UIViewController {
         
         let camera = GMSCameraPosition.cameraWithLatitude(self.startLat, longitude: self.startLng, zoom: 13)
             //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
-        let mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
+        mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.myLocationEnabled = true
+        mapView.settings.compassButton = true
         self.view = mapView
-        /*
-        let currentMarker = GMSMarker()
-        currentMarker.position = CLLocationCoordinate2DMake(mapView.myLocation.coordinate.latitude,
-                                    mapView.myLocation.coordinate.longitude)
-        currentMarker.map = mapView
-        */
+        print(String(self.mapView.myLocation))
+
         let startMarker = GMSMarker()
         startMarker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
         startMarker.title = "Start"
@@ -304,6 +319,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         
         let startAddress = getJSONURL(self.startAddress)
         let stopAddress = getJSONURL(self.stopAddress)
