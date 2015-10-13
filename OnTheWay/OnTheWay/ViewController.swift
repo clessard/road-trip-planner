@@ -22,9 +22,12 @@ import SwiftyJSON
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
+    // The view that is the Google map
     @IBOutlet var mapView: GMSMapView!
     
     let locationManager = CLLocationManager()
+    
+    var useCurrentLocation = false
     
     var startLat = 0.0
     var startLng = 0.0
@@ -75,6 +78,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     * Function used to get the current location of the phone
     */
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        // Shows the current location on the map if the app is authorized to do so
         if status == .AuthorizedWhenInUse {
             
             locationManager.startUpdatingLocation()
@@ -97,11 +103,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let camera = GMSCameraPosition.cameraWithLatitude(self.startLat, longitude: self.startLng, zoom: 13)
             //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
         mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        mapView.myLocationEnabled = true
         mapView.settings.compassButton = true
         self.view = mapView
-        print(String(self.mapView.myLocation))
-
+        
         let startMarker = GMSMarker()
         startMarker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
         startMarker.title = "Start"
@@ -315,13 +319,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    //renders the mpa on the screen based on user input
+    //renders the map on the screen based on user input
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
+        // Used to get the current location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
         
         let startAddress = getJSONURL(self.startAddress)
         let stopAddress = getJSONURL(self.stopAddress)
@@ -330,6 +338,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         setLatandLong(startAddress, typeOfAddress: "start")
         setLatandLong(stopAddress, typeOfAddress: "stop")
         setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
+        
+        if(useCurrentLocation) {
+            self.startLat = locValue.latitude
+            self.startLng = locValue.longitude
+        }
 
         createMap()
     }

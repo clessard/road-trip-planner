@@ -13,8 +13,10 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterStart: UITextField!
     @IBOutlet weak var EnterWayPoint: UITextField!
     @IBOutlet weak var EnterFinish: UITextField!
+    @IBOutlet weak var useCurrentLoc: UISwitch!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
@@ -28,11 +30,12 @@ class StartViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "mapSegue") {
             //println("preparing for segue");
-            let svc = segue.destinationViewController as! ViewController;
-            print(EnterStart.text);
-            svc.startAddress = EnterStart.text!;
-            svc.stopAddress = EnterFinish.text!;
-            svc.wayPointAddress = EnterWayPoint.text!;
+            let svc = segue.destinationViewController as! ViewController
+            print(EnterStart.text)
+            svc.startAddress = EnterStart.text!
+            svc.stopAddress = EnterFinish.text!
+            svc.wayPointAddress = EnterWayPoint.text!
+            svc.useCurrentLocation = useCurrentLoc.on
         }
         else if (segue.identifier == "routesSegue") {
             let svc = segue.destinationViewController as! RoutesViewController;
