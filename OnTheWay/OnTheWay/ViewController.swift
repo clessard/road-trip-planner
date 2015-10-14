@@ -339,6 +339,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         setLatandLong(stopAddress, typeOfAddress: "stop")
         setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
         
+        // Sets the start location to the current location if necessary
         if(useCurrentLocation) {
             self.startLat = locValue.latitude
             self.startLng = locValue.longitude
