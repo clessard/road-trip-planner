@@ -20,6 +20,7 @@ import UIKit
 import GoogleMaps
 import SwiftyJSON
 
+
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
     // The view that is the Google map
@@ -51,6 +52,31 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let searchURL : NSURL = NSURL(string: urlStr as String)!
         //print(searchURL, terminator: "")
         return searchURL
+    }
+    
+    //gets the JSON url necesary to get directions
+    func getDirectionsURl() -> NSURL
+    {
+        let start : String = "\(startLat)" + "," + "\(startLng)"
+        let stop : String = "\(stopLat)" + "," + "\(stopLng)"
+        let midPoint : String = "\(wayPointLat)" + "," + "\(wayPointLng)"
+        let url : NSString = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
+        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let searchURL : NSURL = NSURL(string: urlStr as String)!
+        print(searchURL)
+        return searchURL
+    }
+    
+    func getEncryptedPolyline(jsonRequest: NSURL) -> JSON
+    {
+        let jsonData = NSData(contentsOfURL: jsonRequest)
+        let json = JSON(data: jsonData!)
+        let polyline = json["routes"][0]["overview_polyline"]["points"]
+        print(json)
+        print(json["routes"])
+        print(json["routes"][0]["overview_polyline"])
+        print(polyline)
+        return polyline
     }
     
     //helper function for viewDidLoad
@@ -95,6 +121,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //creates a map with three points on it
     func createMap() {
         
+        print("creating map")
+        
+        var jsonRequest = getDirectionsURl()
+        var encyptedPolyline = getEncryptedPolyline(jsonRequest).string
+        
+        //var polyline = googlemaps.geometry.encoding.decodePath(encyptedPolyline)
+        
+        let path6: GMSPath = GMSPath(fromEncodedPath: encyptedPolyline)
+        var routePolyline = GMSPolyline(path: path6)
+        //routePolyline.map = mapView
+        
+        print("printed polyline")
+        
         // adapting zoom given start to finish distance
         let x = self.startLat - self.stopLat
         let y = self.startLng - self.stopLng
@@ -121,7 +160,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         midMarker.title = "Middle Destination"
         midMarker.map = mapView
         
-        
+        routePolyline.strokeWidth = 5
+        routePolyline.map = mapView
         
         // change map view type
         
@@ -309,12 +349,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                 Path.append("Total distance of route: " + String(stringInterpolationSegment: totalTime[i]))
                 Added.append("Distance added to original: " + String(stringInterpolationSegment: timeAdded[i]))
             }
-            print(Path, terminator: "")
+            print("\(Path)", terminator: "")
             return (Path,Added)
         }
         
-        let minimumPath = GMSPolyline(path: minPaths[0])
-        minimumPath.map = mapView
+        //let minimumPath = GMSPolyline(path: minPaths[0])
+        //minimumPath.map = mapView
         
     }
     
