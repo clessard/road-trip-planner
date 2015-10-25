@@ -15,11 +15,21 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterFinish: UITextField!
     @IBOutlet weak var useCurrentLoc: UISwitch!
     
+    
+    //Calls this function when the tap is recognized.
+    func DismissKeyboard(){
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        //Looks for single or multiple taps.
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,7 +41,7 @@ class StartViewController: UIViewController {
         if (segue.identifier == "mapSegue") {
             //println("preparing for segue");
             let svc = segue.destinationViewController as! ViewController
-            print(EnterStart.text)
+            print(EnterStart.text, terminator: "")
             svc.startAddress = EnterStart.text!
             svc.stopAddress = EnterFinish.text!
             svc.wayPointAddress = EnterWayPoint.text!
