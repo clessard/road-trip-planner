@@ -36,8 +36,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var stopLat = 0.0
     var stopLng = 0.0
     
-    var wayPointLat = 0.0
-    var wayPointLng = 0.0
+    var wayPointLat = -424242.0
+    var wayPointLng = -424242.0
     
     
     var startAddress = ""
@@ -60,7 +60,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let start : String = "\(startLat)" + "," + "\(startLng)"
         let stop : String = "\(stopLat)" + "," + "\(stopLng)"
         let midPoint : String = "\(wayPointLat)" + "," + "\(wayPointLng)"
-        let url : NSString = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
+        var url = NSString()
+        
+        print(midPoint)
+        print("waypoint address is")
+        print(wayPointAddress)
+        print(wayPointAddress == "")
+        if(wayPointAddress == "")
+        {
+            print("hit option 1")
+            url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
+        }
+        if(wayPointAddress != "")
+        {
+            print("hit option 2")
+            url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
+        }
         let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
         let searchURL : NSURL = NSURL(string: urlStr as String)!
         print(searchURL)
@@ -72,10 +87,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let jsonData = NSData(contentsOfURL: jsonRequest)
         let json = JSON(data: jsonData!)
         let polyline = json["routes"][0]["overview_polyline"]["points"]
-        print(json)
-        print(json["routes"])
-        print(json["routes"][0]["overview_polyline"])
-        print(polyline)
+        //print(json)
+        //print(json["routes"])
+        //print(json["routes"][0]["overview_polyline"])
+        //print(polyline)
         return polyline
     }
     
