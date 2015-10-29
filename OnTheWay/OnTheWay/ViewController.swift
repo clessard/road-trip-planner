@@ -119,8 +119,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     * Function used to get the current location of the phone
     */
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        //let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        //print("locations = \(locValue.latitude) \(locValue.longitude)")
         // Shows the current location on the map if the app is authorized to do so
         if status == .AuthorizedWhenInUse {
             
@@ -136,15 +136,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     //creates a map with three points on it
     func createMap() {
         
+        
         print("creating map")
         
-        var jsonRequest = getDirectionsURl()
-        var encyptedPolyline = getEncryptedPolyline(jsonRequest).string
+        let jsonRequest = getDirectionsURl()
+        let encyptedPolyline = getEncryptedPolyline(jsonRequest).string
         
         //var polyline = googlemaps.geometry.encoding.decodePath(encyptedPolyline)
         
         let path6: GMSPath = GMSPath(fromEncodedPath: encyptedPolyline)
-        var routePolyline = GMSPolyline(path: path6)
+        let routePolyline = GMSPolyline(path: path6)
         //routePolyline.map = mapView
         
         print("printed polyline")
@@ -152,12 +153,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         // adapting zoom given start to finish distance
         let x = self.startLat - self.stopLat
         let y = self.startLng - self.stopLng
-        var routeDist = sqrt(pow(x,2) + pow(y,2))
+        let routeDist = sqrt(pow(x,2) + pow(y,2))
         
-        let camera = GMSCameraPosition.cameraWithLatitude(self.startLat, longitude: self.startLng, zoom: 13)
+        // camera view is in the middle of the route
+        let midx = (self.startLat + self.stopLat)/2
+        let midy = (self.startLng + self.stopLng)/2
+        
+        
+        let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: 4)
             //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
         mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.settings.compassButton = true
+        let mapInsets = UIEdgeInsetsMake(100.0, 100.0, 100.0, 100.0)
+        mapView.padding = mapInsets
+        mapView.myLocationEnabled = true
         self.view = mapView
         
         let startMarker = GMSMarker()
@@ -183,191 +192,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         //mapView.mapType = kGMSTypeSatellite
         
         
-        
-        //        var mapInsets = UIEdgeInsetsMake(100.0, 100.0, 100.0, 300.0)
-        //
-        //        mapView.padding = mapInsets
-        mapView.myLocationEnabled = true
-        self.view = mapView
-        
-        
-        var start = GMSMarker()
-        //        start.position = CLLocationCoordinate2DMake(34.1100, -117.7197)
-        //
-        //        start.title = "Claremont"
-        //
-        //        start.snippet = "California"
-        //
-        //        start.map = mapView
-        start = startMarker
-        
-        
-        var end = GMSMarker()
-        //        end.position = CLLocationCoordinate2DMake(34.0219, -118.4814)
-        //
-        //        end.title = "Santa Monica"
-        //
-        //        end.snippet = "California"
-        //
-        //        end.map = mapView
-        end = stopMarker
-        
-        
-        // calculate start stop distance
-        let xDist = start.position.latitude - end.position.latitude
-        let yDist = start.position.longitude - end.position.longitude
-        var STARTtoSTOP = sqrt(pow(xDist,2) + pow(yDist,2))
-        
-        // calculate most north, east, west, and south points on route
-        var North = max(start.position.latitude,end.position.latitude) + 0.15 * STARTtoSTOP
-        var South = min(start.position.latitude,end.position.latitude) - 0.15 * STARTtoSTOP
-        var East = max(start.position.longitude,end.position.longitude) + 0.15 * STARTtoSTOP
-        var West = min(start.position.longitude,end.position.longitude) - 0.15 * STARTtoSTOP
-        
-        // draw search region box
-        var path = GMSMutablePath()
-        path.addCoordinate(CLLocationCoordinate2DMake(North, West))
-        path.addCoordinate(CLLocationCoordinate2DMake(North, East))
-        path.addCoordinate(CLLocationCoordinate2DMake(South, East))
-        path.addCoordinate(CLLocationCoordinate2DMake(South, West))
-        path.addCoordinate(CLLocationCoordinate2DMake(North, West))
-        var rectangle = GMSPolyline(path: path)
-        rectangle.map = mapView
-        
-        
-        
-        var stop1 = GMSMarker()
-        //        stop1.position = CLLocationCoordinate2DMake(34.4238, -118.5971)
-        //
-        //        stop1.title = "Six FLags"
-        //
-        //        stop1.snippet = "California"
-        stop1.map = mapView
-        
-        
-        
-        var stop2 = GMSMarker()
-        //        stop2.position = CLLocationCoordinate2DMake(34.1561, -118.1319)
-        //
-        //        stop2.title = "Pasadena"
-        //
-        //        stop2.snippet = "California"
-        //
-        //        stop2.map = mapView
-        stop2 = midMarker
-        
-        
-        
-        var stop3 = GMSMarker()
-        //        stop3.position = CLLocationCoordinate2DMake(33.8003, -117.8828)
-        //
-        //        stop3.title = "Angels Stadium"
-        //
-        //        stop3.snippet = "California"
-        stop3.map = mapView
-        
-        
-        var path1 = GMSMutablePath()
-        path1.addCoordinate(start.position)
-        path1.addCoordinate(stop1.position)
-        path1.addCoordinate(end.position)
-        var startStop1 = start.position
-        
-        var path2 = GMSMutablePath()
-        path2.addCoordinate(start.position)
-        path2.addCoordinate(stop2.position)
-        path2.addCoordinate(end.position)
-        
-        var path3 = GMSMutablePath()
-        path3.addCoordinate(start.position)
-        path3.addCoordinate(stop3.position)
-        path3.addCoordinate(end.position)
-        
-        var stops = [stop1,stop2,stop3]
-        var paths = [path1,path2,path3]
-        
-        
-        
-        /*
-        
-        Calculates min path and returns lists that will be used for user selection page
-        
-        */
-        
-        func GetMinPath(inout paths: [GMSMutablePath],inout stops: [GMSMarker],start: GMSMarker,end: GMSMarker) -> ([GMSMutablePath],[Double],[Double],[Double],Double){
-            
-            var minPath = GMSMutablePath()
-            
-            // gets min path from list of paths
-            func MINPATH(paths: [GMSMutablePath],stops: [GMSMarker]) -> (Double , GMSMutablePath){
-                var minDist = 1000000000.0
-                var minPath = GMSMutablePath()
-                for var index = 0; index < paths.count; ++index {
-                    let xDist1 = start.position.latitude - stops[index].position.latitude
-                    let yDist1 = start.position.longitude - stops[index].position.longitude
-                    let xDist2 = end.position.latitude - stops[index].position.latitude
-                    let yDist2 = end.position.longitude - stops[index].position.longitude
-                    let totalDistance = sqrt(pow(xDist1,2) + pow(yDist1,2)) + sqrt(pow(xDist2,2) + pow(yDist2,2))
-                    if minDist > totalDistance{
-                        minDist = totalDistance
-                        minPath = paths[index]
-                    }
-                }
-                return (minDist,minPath)
-            }
-            var minPaths = [GMSMutablePath]()
-            var minDists = [Double]()
-            var minDist = 0.0
-            
-            // ordering paths by distance
-            while(paths.count != 0){
-                (minDist,minPath) = MINPATH(paths, stops: stops)
-                minPaths.append(minPath)
-                minDists.append(minDist)
-                var tempPaths = [GMSMutablePath] ()
-                var tempStops = [GMSMarker] ()
-                for var i = 0; i < paths.count; ++i {
-                    if (paths[i] != minPath){
-                        tempPaths.append(paths[i])
-                        tempStops.append(stops[i])
-                    }
-                }
-                paths = tempPaths
-                stops = tempStops
-            }
-            
-            
-            // calculating things needed for Routes View Controller
-            minPath = minPaths[0]
-            let xDist = start.position.latitude - end.position.latitude
-            let yDist = start.position.longitude - end.position.longitude
-            var totalTime = [Double] ()
-            var timeAdded = [Double] ()
-            let STARTtoSTOP = sqrt(pow(xDist,2) + pow(yDist,2))
-            for var i = 0; i < minPaths.count; ++i {
-                totalTime.append(minDists[i])
-                timeAdded.append(minDists[i] - STARTtoSTOP)
-            }
-            return (minPaths,minDists,totalTime,timeAdded,STARTtoSTOP)
-        }
-        
-        var minPaths = [GMSMutablePath]()
-        var minDists = [Double]()
-        var totalTime = [Double]()
-        var timeAdded = [Double]()
-        (minPaths,minDists,totalTime,timeAdded,STARTtoSTOP) = GetMinPath(&paths,stops: &stops,start: start,end: end)
-        
-        func ListPaths(totalTime: [Double], timeAdded: [Double], minDists: [Double], StartToFinish: Double) -> (Path: [String], Added: [String]){
-            var Path = [String]()
-            var Added = [String]()
-            for var i = 0; i < totalTime.count; ++i {
-                Path.append("Total distance of route: " + String(stringInterpolationSegment: totalTime[i]))
-                Added.append("Distance added to original: " + String(stringInterpolationSegment: timeAdded[i]))
-            }
-            print("\(Path)", terminator: "")
-            return (Path,Added)
-        }
-        
         //let minimumPath = GMSPolyline(path: minPaths[0])
         //minimumPath.map = mapView
         
@@ -384,7 +208,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
+        //let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
         
         let startAddress = getJSONURL(self.startAddress)
         let stopAddress = getJSONURL(self.stopAddress)
@@ -395,10 +219,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
         
         // Sets the start location to the current location if necessary
-        if(useCurrentLocation) {
-            self.startLat = locValue.latitude
-            self.startLng = locValue.longitude
-        }
+        //if(useCurrentLocation) {
+          //  self.startLat = locValue.latitude
+            //self.startLng = locValue.longitude
+        //}
 
         createMap()
     }

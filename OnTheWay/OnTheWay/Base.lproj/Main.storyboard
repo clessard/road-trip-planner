@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QsJ-1J-HG2">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -10,8 +10,8 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="oeN-hU-fej"/>
+                        <viewControllerLayoutGuide type="bottom" id="d1i-A3-bFf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GMSMapView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -24,43 +24,37 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="199"/>
+            <point key="canvasLocation" x="2492" y="198"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="hBR-cA-uvL">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="QsJ-1J-HG2" customClass="StartViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="yK4-TK-U8K"/>
-                        <viewControllerLayoutGuide type="bottom" id="CMj-UB-u7a"/>
+                        <viewControllerLayoutGuide type="top" id="7oq-LJ-qJu"/>
+                        <viewControllerLayoutGuide type="bottom" id="uhd-1x-G0f"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yGd-V3-Plv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Finish" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iGb-EF-ieZ">
-                                <rect key="frame" x="212" y="285" width="177" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="177" id="a52-rz-5Eh"/>
-                                </constraints>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Finish" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iGb-EF-ieZ">
+                                <rect key="frame" x="93" y="269" width="177" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Start" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AO8-iY-fdG">
-                                <rect key="frame" x="212" y="209" width="177" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Start" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AO8-iY-fdG">
+                                <rect key="frame" x="93" y="193" width="177" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Waypoint" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dk8-oN-RdM">
-                                <rect key="frame" x="212" y="247" width="177" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Waypoint" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dk8-oN-RdM">
+                                <rect key="frame" x="93" y="231" width="177" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTh-9N-AJe">
-                                <rect key="frame" x="261" y="323" width="78" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="78" id="XDt-HN-PBE"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTh-9N-AJe">
+                                <rect key="frame" x="142" y="307" width="78" height="30"/>
                                 <state key="normal" title="Get Routes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -70,11 +64,8 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue0-fh-OvK">
-                                <rect key="frame" x="272" y="361" width="56" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="56" id="QSV-3q-slV"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue0-fh-OvK">
+                                <rect key="frame" x="153" y="345" width="56" height="30"/>
                                 <state key="normal" title="GetMap">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -82,56 +73,38 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapSegue" id="ktR-61-LQA"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq1-2t-3Ot">
-                                <rect key="frame" x="276" y="155" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" layoutMarginsFollowReadableWidth="YES" text="Use current location as start" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S95-Qh-4wx">
-                                <rect key="frame" x="106" y="60" width="387" height="87"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use current location as Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-MB-rJl">
+                                <rect key="frame" x="81" y="399" width="219" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
+                                <rect key="frame" x="166" y="458" width="51" height="31"/>
+                            </switch>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2015-10-27 at 8.53.11 PM" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
+                                <rect key="frame" x="20" y="31" width="347" height="140"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="Ue0-fh-OvK" firstAttribute="top" secondItem="TTh-9N-AJe" secondAttribute="bottom" constant="8" symbolic="YES" id="1Am-nG-399"/>
-                            <constraint firstItem="Ue0-fh-OvK" firstAttribute="centerX" secondItem="TTh-9N-AJe" secondAttribute="centerX" id="2GF-cB-erP"/>
-                            <constraint firstItem="iGb-EF-ieZ" firstAttribute="trailing" secondItem="Dk8-oN-RdM" secondAttribute="trailing" id="3OF-i9-05Z"/>
-                            <constraint firstAttribute="centerX" secondItem="Dk8-oN-RdM" secondAttribute="centerX" id="9d2-Vq-A8R"/>
-                            <constraint firstItem="S95-Qh-4wx" firstAttribute="top" secondItem="yK4-TK-U8K" secondAttribute="bottom" constant="82" id="9py-0s-YnF"/>
-                            <constraint firstItem="iGb-EF-ieZ" firstAttribute="top" secondItem="Dk8-oN-RdM" secondAttribute="bottom" constant="8" symbolic="YES" id="BAr-Oa-Ufy"/>
-                            <constraint firstItem="S95-Qh-4wx" firstAttribute="leading" secondItem="yGd-V3-Plv" secondAttribute="leadingMargin" constant="86" id="FHk-fk-ayf"/>
-                            <constraint firstItem="Wq1-2t-3Ot" firstAttribute="top" secondItem="yGd-V3-Plv" secondAttribute="top" constant="155" id="VCn-6K-xKa"/>
-                            <constraint firstItem="Wq1-2t-3Ot" firstAttribute="centerX" secondItem="AO8-iY-fdG" secondAttribute="centerX" id="WxL-HO-J9q"/>
-                            <constraint firstItem="iGb-EF-ieZ" firstAttribute="leading" secondItem="AO8-iY-fdG" secondAttribute="leading" id="Zh2-yp-iiq"/>
-                            <constraint firstItem="TTh-9N-AJe" firstAttribute="top" secondItem="iGb-EF-ieZ" secondAttribute="bottom" constant="8" symbolic="YES" id="c3H-rU-Upy"/>
-                            <constraint firstItem="iGb-EF-ieZ" firstAttribute="centerY" secondItem="yGd-V3-Plv" secondAttribute="centerY" id="eTB-Wm-5wi"/>
-                            <constraint firstItem="S95-Qh-4wx" firstAttribute="centerX" secondItem="TTh-9N-AJe" secondAttribute="centerX" id="fe7-aK-J37"/>
-                            <constraint firstItem="TTh-9N-AJe" firstAttribute="centerX" secondItem="iGb-EF-ieZ" secondAttribute="centerX" id="gXx-8l-Tm3"/>
-                            <constraint firstItem="Wq1-2t-3Ot" firstAttribute="top" secondItem="S95-Qh-4wx" secondAttribute="bottom" constant="8" symbolic="YES" id="mEf-cR-tL4"/>
-                            <constraint firstItem="iGb-EF-ieZ" firstAttribute="leading" secondItem="Dk8-oN-RdM" secondAttribute="leading" id="pno-mg-8ll"/>
-                            <constraint firstAttribute="centerX" secondItem="AO8-iY-fdG" secondAttribute="centerX" id="q0y-ph-Vgt"/>
-                            <constraint firstItem="Dk8-oN-RdM" firstAttribute="top" secondItem="AO8-iY-fdG" secondAttribute="bottom" constant="8" symbolic="YES" id="weZ-VF-bzh"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="EnterFinish" destination="iGb-EF-ieZ" id="mXk-lM-3SQ"/>
                         <outlet property="EnterStart" destination="AO8-iY-fdG" id="rMK-xZ-BjJ"/>
                         <outlet property="EnterWayPoint" destination="Dk8-oN-RdM" id="ddi-GL-Xak"/>
-                        <outlet property="useCurrentLoc" destination="Wq1-2t-3Ot" id="wNg-Lq-RdU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sii-an-U7K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="199"/>
+            <point key="canvasLocation" x="802.5" y="169.01408450704224"/>
         </scene>
         <!--Routes View Controller-->
         <scene sceneID="vim-d1-Dac">
             <objects>
                 <viewController id="HPS-jl-iEx" customClass="RoutesViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="FZ2-l9-8qG"/>
-                        <viewControllerLayoutGuide type="bottom" id="aIp-Zk-JQh"/>
+                        <viewControllerLayoutGuide type="top" id="Jji-Fq-TgH"/>
+                        <viewControllerLayoutGuide type="bottom" id="V0z-sG-6mP"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rdn-7E-pr1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -149,7 +122,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACy-M7-NbZ">
-                                <rect key="frame" x="77" y="20" width="94" height="35.5"/>
+                                <rect key="frame" x="77" y="20" width="94" height="36"/>
                                 <state key="normal" title="Show Route">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -177,6 +150,9 @@
             <point key="canvasLocation" x="1830" y="187"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Screen Shot 2015-10-27 at 8.53.11 PM" width="366" height="168"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ktR-61-LQA"/>
     </inferredMetricsTieBreakers>

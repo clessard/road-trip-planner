@@ -10,11 +10,22 @@ import UIKit
 
 class StartViewController: UIViewController {
 
+    @IBOutlet weak var OnTheWay: UIImageView!
     @IBOutlet weak var EnterStart: UITextField!
     @IBOutlet weak var EnterWayPoint: UITextField!
     @IBOutlet weak var EnterFinish: UITextField!
     @IBOutlet weak var useCurrentLoc: UISwitch!
     
+    @IBAction func buttonClicked(sender: AnyObject)
+    {
+        if useCurrentLoc.on {
+            
+            useCurrentLoc.setOn(false, animated:true)
+        } else {
+        
+            useCurrentLoc.setOn(true, animated:true)
+        }
+    }
     
     //Calls this function when the tap is recognized.
     func DismissKeyboard(){
@@ -45,7 +56,7 @@ class StartViewController: UIViewController {
             svc.startAddress = EnterStart.text!
             svc.stopAddress = EnterFinish.text!
             svc.wayPointAddress = EnterWayPoint.text!
-            svc.useCurrentLocation = useCurrentLoc.on
+            //svc.useCurrentLocation = useCurrentLoc.on
         }
         else if (segue.identifier == "routesSegue") {
             let svc = segue.destinationViewController as! RoutesViewController;
