@@ -56,7 +56,7 @@ class StartViewController: UIViewController {
             svc.startAddress = EnterStart.text!
             svc.stopAddress = EnterFinish.text!
             svc.wayPointAddress = EnterWayPoint.text!
-            //svc.useCurrentLocation = useCurrentLoc.on
+            svc.useCurrentLocation = useCurrentLoc.on
         }
         else if (segue.identifier == "routesSegue") {
             let svc = segue.destinationViewController as! RoutesViewController;

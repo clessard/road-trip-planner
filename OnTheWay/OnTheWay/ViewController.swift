@@ -208,7 +208,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        //let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
+        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
         
         let startAddress = getJSONURL(self.startAddress)
         let stopAddress = getJSONURL(self.stopAddress)
@@ -219,10 +219,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
         
         // Sets the start location to the current location if necessary
-        //if(useCurrentLocation) {
-          //  self.startLat = locValue.latitude
-            //self.startLng = locValue.longitude
-        //}
+        if(useCurrentLocation) {
+            self.startLat = locValue.latitude
+            self.startLng = locValue.longitude
+        }
 
         createMap()
     }
