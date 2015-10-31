@@ -27,102 +27,48 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var mapView: GMSMapView!
     
     let locationManager = CLLocationManager()
+    let polylineWidth : CGFloat = 5;
+    let startIndex = 0
+    let stopIndex = 1
+    let wayPointIndex = 2
     
     var useCurrentLocation = false
     
-    var startLat = 0.0
-    var startLng = 0.0
+    var latArray = [0.0, 0.0, 0.0]
+    var lngArray = [0.0, 0.0, 0.0]
+    var addressArray = ["", "", ""]
+
     
-    var stopLat = 0.0
-    var stopLng = 0.0
-    
-    var wayPointLat = -424242.0
-    var wayPointLng = -424242.0
-    
-    
-    var startAddress = ""
-    var stopAddress = ""
-    var wayPointAddress = ""
-    
-    //helper function for viewDidLoad()
-    //takes in an address in string form and returns an NSURL that can be used to get a JSON file
-    func getJSONURL(address: String) -> NSURL {
-        let url : NSString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(address)"
-        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        let searchURL : NSURL = NSURL(string: urlStr as String)!
-        //print(searchURL, terminator: "")
-        return searchURL
-    }
-    
-    //gets the JSON url necesary to get directions
-    func getDirectionsURl() -> NSURL
+    //gets the correct url to use to request directions
+    func getDirectionsUrl() -> NSString
     {
-        let start : String = "\(startLat)" + "," + "\(startLng)"
-        let stop : String = "\(stopLat)" + "," + "\(stopLng)"
-        let midPoint : String = "\(wayPointLat)" + "," + "\(wayPointLng)"
-        var url = NSString()
+        let start : String = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
+        let stop : String = "\(latArray[stopIndex])" + "," + "\(lngArray[stopIndex])"
+        let midPoint : String = "\(latArray[wayPointIndex])" + "," + "\(lngArray[wayPointIndex])"
+        var url  = NSString()
         
-        print(midPoint)
-        print("waypoint address is")
-        print(wayPointAddress)
-        print(wayPointAddress == "")
-        if(wayPointAddress == "")
+        if(addressArray[wayPointIndex] == "")
         {
-            print("hit option 1")
             url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
         }
-        if(wayPointAddress != "")
+        else
         {
-            print("hit option 2")
             url = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
         }
-        let urlStr : NSString = url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-        let searchURL : NSURL = NSURL(string: urlStr as String)!
-        print(searchURL)
-        return searchURL
+        return url
     }
-    
-    func getEncryptedPolyline(jsonRequest: NSURL) -> JSON
-    {
-        let jsonData = NSData(contentsOfURL: jsonRequest)
-        let json = JSON(data: jsonData!)
-        let polyline = json["routes"][0]["overview_polyline"]["points"]
-        //print(json)
-        //print(json["routes"])
-        //print(json["routes"][0]["overview_polyline"])
-        //print(polyline)
-        return polyline
-    }
-    
-    //helper function for viewDidLoad
-    //sets the latitude and longitude values for a certain destination
-    //takes in a NSURL and a string telling you what lat and long values to set
-    //gets and parses the correct JSON file
-    func setLatandLong(jsonRequest: NSURL, typeOfAddress: String) {
-        let jsonData = NSData(contentsOfURL: jsonRequest)
-        let json = JSON(data: jsonData!)
-        if(typeOfAddress == "start") {
-            self.startLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-            self.startLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
-        }
-        if(typeOfAddress == "stop") {
-            self.stopLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-            self.stopLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
-        }
-        if(typeOfAddress == "wayPoint"){
-            self.wayPointLat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
-            self.wayPointLng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
-        }
-    }
+
     
     /**
     * Function used to get the current location of the phone
     */
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
         //let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         //print("locations = \(locValue.latitude) \(locValue.longitude)")
         // Shows the current location on the map if the app is authorized to do so
-        if status == .AuthorizedWhenInUse {
+        if status == .AuthorizedWhenInUse
+        {
             
             locationManager.startUpdatingLocation()
             
@@ -131,37 +77,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    //draws a marker on the map
+    func drawMarker(lat: Double, lng: Double, address: String)
+    {
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2DMake(lat, lng)
+        marker.title = address
+        marker.map = mapView
+    }
 
-    //helper function for viewDidLoad()
-    //creates a map with three points on it
-    func createMap() {
-        
-        
-        print("creating map")
-        
-        let jsonRequest = getDirectionsURl()
-        let encyptedPolyline = getEncryptedPolyline(jsonRequest).string
-        
-        //var polyline = googlemaps.geometry.encoding.decodePath(encyptedPolyline)
-        
-        let path6: GMSPath = GMSPath(fromEncodedPath: encyptedPolyline)
-        let routePolyline = GMSPolyline(path: path6)
-        //routePolyline.map = mapView
-        
-        print("printed polyline")
+    //creates a map with three points on it and a polyline of the route
+    func createMap()
+    {
+        //getting polyline info
+        let jsonDirURL = JsonURL(url: getDirectionsUrl())
+        let encyptedPolyline = jsonDirURL.getEncryptedPolyline().string
+        let directionsPath: GMSPath = GMSPath(fromEncodedPath: encyptedPolyline)
+        let routePolyline = GMSPolyline(path: directionsPath)
         
         // adapting zoom given start to finish distance
-        let x = self.startLat - self.stopLat
-        let y = self.startLng - self.stopLng
+        let x = latArray[startIndex] - latArray[stopIndex]
+        let y = lngArray[startIndex] - lngArray[stopIndex]
         let routeDist = sqrt(pow(x,2) + pow(y,2))
         
         // camera view is in the middle of the route
-        let midx = (self.startLat + self.stopLat)/2
-        let midy = (self.startLng + self.stopLng)/2
+        let midx = (latArray[startIndex] + latArray[stopIndex])/2
+        let midy = (lngArray[startIndex] + lngArray[stopIndex])/2
         
         
         let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: 4)
-            //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
+        //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
         mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.settings.compassButton = true
         let mapInsets = UIEdgeInsetsMake(100.0, 100.0, 100.0, 100.0)
@@ -169,37 +114,36 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.myLocationEnabled = true
         self.view = mapView
         
-        let startMarker = GMSMarker()
-        startMarker.position = CLLocationCoordinate2DMake(self.startLat, self.startLng)
-        startMarker.title = "Start"
-        startMarker.map = mapView
+        //draw start, stop, and wayPoint on the map
+        drawMarker(latArray[startIndex], lng: lngArray[startIndex], address: addressArray[startIndex])
+        drawMarker(latArray[stopIndex], lng: lngArray[stopIndex], address: addressArray[stopIndex])
+        drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], address: addressArray[wayPointIndex])
         
-        let stopMarker = GMSMarker()
-        stopMarker.position = CLLocationCoordinate2DMake(self.stopLat, self.stopLng)
-        stopMarker.title = "End"
-        stopMarker.map = mapView
-        
-        let midMarker = GMSMarker()
-        midMarker.position = CLLocationCoordinate2DMake(self.wayPointLat, self.wayPointLng)
-        midMarker.title = "Middle Destination"
-        midMarker.map = mapView
-        
-        routePolyline.strokeWidth = 5
+        routePolyline.strokeWidth = polylineWidth
         routePolyline.map = mapView
         
-        // change map view type
-        
         //mapView.mapType = kGMSTypeSatellite
-        
-        
         //let minimumPath = GMSPolyline(path: minPaths[0])
         //minimumPath.map = mapView
         
     }
     
+    //sets the latitude and longitude values to the correct values based on the passed in addresses
+    func setLatandLng(addresses: [String], inout lats: [Double], inout lngs: [Double])
+    {
+        let length = addresses.count
+        for index in 0...length - 1
+        {
+            let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addresses[index])
+            addressStr.setLatandLng(&lats[index], lng: &lngs[index])
+        }
+    }
     
     //renders the map on the screen based on user input
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
+        
+        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
         
         super.viewDidLoad()
         
@@ -207,21 +151,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
-        
-        let startAddress = getJSONURL(self.startAddress)
-        let stopAddress = getJSONURL(self.stopAddress)
-        let midPointAddress = getJSONURL(wayPointAddress)
-        
-        setLatandLong(startAddress, typeOfAddress: "start")
-        setLatandLong(stopAddress, typeOfAddress: "stop")
-        setLatandLong(midPointAddress, typeOfAddress: "wayPoint")
+    
+        setLatandLng(addressArray, lats: &latArray, lngs: &lngArray)
         
         // Sets the start location to the current location if necessary
-        if(useCurrentLocation) {
-            self.startLat = locValue.latitude
-            self.startLng = locValue.longitude
+        if(useCurrentLocation)
+        {
+            latArray[startIndex] = locValue.latitude
+            lngArray[startIndex] = locValue.longitude
         }
 
         createMap()

@@ -14,8 +14,13 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterStart: UITextField!
     @IBOutlet weak var EnterWayPoint: UITextField!
     @IBOutlet weak var EnterFinish: UITextField!
-    @IBOutlet weak var useCurrentLoc: UISwitch!
+    @IBOutlet weak var CurrentLoc: UISwitch!
     
+    let startIndex = 0;
+    let stopIndex = 1;
+    let wayPointIndex = 2;
+    
+    /*
     @IBAction func buttonClicked(sender: AnyObject)
     {
         if useCurrentLoc.on {
@@ -26,39 +31,47 @@ class StartViewController: UIViewController {
             useCurrentLoc.setOn(true, animated:true)
         }
     }
+    */
     
     //Calls this function when the tap is recognized.
-    func DismissKeyboard(){
-        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+    func DismissKeyboard()
+    {
         view.endEditing(true)
     }
     
-    override func viewDidLoad() {
-        
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "mapSegue") {
-            //println("preparing for segue");
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
+    {
+        //if the user wants a map
+        if (segue.identifier == "mapSegue")
+        {
             let svc = segue.destinationViewController as! ViewController
-            print(EnterStart.text, terminator: "")
-            svc.startAddress = EnterStart.text!
-            svc.stopAddress = EnterFinish.text!
-            svc.wayPointAddress = EnterWayPoint.text!
-            svc.useCurrentLocation = useCurrentLoc.on
+            svc.addressArray[startIndex] = EnterStart.text!
+            svc.addressArray[stopIndex] = EnterFinish.text!
+            svc.addressArray[wayPointIndex] = EnterWayPoint.text!
+            if(CurrentLoc.on)
+            {
+                svc.useCurrentLocation = true
+            }
         }
-        else if (segue.identifier == "routesSegue") {
+            
+        //if the user wants a list of routes
+        else if (segue.identifier == "routesSegue")
+        {
             let svc = segue.destinationViewController as! RoutesViewController;
             svc.startAddress = EnterStart.text!;
             svc.stopAddress = EnterFinish.text!;

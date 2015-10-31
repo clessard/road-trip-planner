@@ -27,7 +27,7 @@ public class JsonURL {
     }
     
     //gets an encrypted polyline from a JSON file
-    func getEncryptedPolyline() -> JSON
+    public func getEncryptedPolyline() -> JSON
     {
         let jsonRequest: NSURL = getJSONURL()
         let jsonData = NSData(contentsOfURL: jsonRequest)
@@ -37,11 +37,15 @@ public class JsonURL {
     }
     
     //sets the lat and lng values passed in based on the lat and lng value in the JSON file associated with url
-    func setLatandLong(inout lat: Double, inout lng: Double) {
+    public func setLatandLng(inout lat: Double, inout lng: Double) {
+        print("latBefore")
+        print(lat)
         let jsonRequest: NSURL = getJSONURL()
         let jsonData = NSData(contentsOfURL: jsonRequest)
         let json = JSON(data: jsonData!)
         lat = (json["results"][0]["geometry"]["location"]["lat"]).doubleValue
         lng = (json["results"][0]["geometry"]["location"]["lng"]).doubleValue
+        print("latAfter")
+        print(lat)
     }
 }
