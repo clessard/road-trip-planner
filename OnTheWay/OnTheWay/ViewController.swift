@@ -39,8 +39,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var addressArray = ["", "", ""]
 
     
-    //gets the correct url to use to request directions
-    func getDirectionsUrl() -> NSString
+    //returns an NSString that is the correct url to use to request directions
+    private func getDirectionsUrl() -> NSString
     {
         let start : String = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
         let stop : String = "\(latArray[stopIndex])" + "," + "\(lngArray[stopIndex])"
@@ -78,7 +78,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     //draws a marker on the map
-    func drawMarker(lat: Double, lng: Double, address: String)
+    private func drawMarker(lat: Double, lng: Double, address: String)
     {
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(lat, lng)
@@ -87,7 +87,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     //creates a map with three points on it and a polyline of the route
-    func createMap()
+    private func createMap()
     {
         //getting polyline info
         let jsonDirURL = JsonURL(url: getDirectionsUrl())
@@ -104,8 +104,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let midx = (latArray[startIndex] + latArray[stopIndex])/2
         let midy = (lngArray[startIndex] + lngArray[stopIndex])/2
         
-        
-        let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: 4)
+        let zoomLevel: Float = Float(1/routeDist) * 7.0
+        let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: zoomLevel)
         //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
         mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
         mapView.settings.compassButton = true
@@ -129,7 +129,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     //sets the latitude and longitude values to the correct values based on the passed in addresses
-    func setLatandLng(addresses: [String], inout lats: [Double], inout lngs: [Double])
+    private func setLatandLng(addresses: [String], inout lats: [Double], inout lngs: [Double])
     {
         let length = addresses.count
         for index in 0...length - 1
