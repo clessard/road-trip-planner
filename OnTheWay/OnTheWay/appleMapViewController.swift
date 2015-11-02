@@ -1,5 +1,3 @@
-//
-//  MapViewController.swift
 //  OnTheWay
 //
 //  Created by Carli Lessard on 9/20/15.
@@ -7,7 +5,7 @@
 //
 
 // Notes on Ellen's Code: You can now have a user input an address for start, stop, and midpoint and
-//                       the code will render these 3 point on a screen. Although the user input is 
+//                       the code will render these 3 point on a screen. Although the user input is
 //                       woorking, there are other cases of hard cpding going on. Moving forward we
 //                       probably want to change this. Some instance of hard coding: zoom level, the
 //                       if cases in setLatandLong(). Additionally, the code is repetative and could
@@ -17,16 +15,13 @@
 //Part of code from: http://stackoverflow.com/questions/28514622/convert-string-to-nsurl-is-return-nil-in-swift
 
 import UIKit
-import GoogleMaps
 import SwiftyJSON
 import MapKit
 
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class appleMapViewController: UIViewController, CLLocationManagerDelegate {
     
-    // The view that is the Google map
-    @IBOutlet var mapView: GMSMapView!
-    
+    @IBOutlet weak var appleMapView: MKMapView!
     let locationManager = CLLocationManager()
     let polylineWidth : CGFloat = 5;
     let startIndex = 0
@@ -38,7 +33,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var latArray = [0.0, 0.0, 0.0]
     var lngArray = [0.0, 0.0, 0.0]
     var addressArray = ["", "", ""]
-
+    
     
     //returns an NSString that is the correct url to use to request directions
     private func getDirectionsUrl() -> NSString
@@ -58,13 +53,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         }
         return url
     }
-
+    
     
     /**
-    * Function used to get the current location of the phone
-    */
+     * Function used to get the current location of the phone
+     */
     
-    
+    /*
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         //let locValue:CLLocationCoordinate2D = manager.location!.coordinate
@@ -79,32 +74,24 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             mapView.settings.myLocationButton = true
         }
     }
+*/
     
     //draws a marker on the map
     private func drawMarker(lat: Double, lng: Double, address: String)
     {
-        /*
+        
         let location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
         let marker = MKPointAnnotation()
         marker.coordinate = location
         marker.title = address
         appleMapView.addAnnotation(marker)
-*/
         
-        
-        
-        
-        let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2DMake(lat, lng)
-        marker.title = address
-        marker.map = mapView
-
     }
-
+    
     //creates a map with three points on it and a polyline of the route
     private func createMap()
     {
-        
+        /*
         //getting polyline info
         let jsonDirURL = JsonURL(url: getDirectionsUrl())
         let encyptedPolyline = jsonDirURL.getEncryptedPolyline().string
@@ -118,18 +105,19 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let x = latArray[startIndex] - latArray[stopIndex]
         let y = lngArray[startIndex] - lngArray[stopIndex]
         let routeDist = sqrt(pow(x,2) + pow(y,2))
-
+        */
         
         // camera view is in the middle of the route
         let midx = (latArray[startIndex] + latArray[stopIndex])/2
         let midy = (lngArray[startIndex] + lngArray[stopIndex])/2
+
         
-        /*
+        
         let cameraPos = CLLocationCoordinate2D(latitude: midx, longitude: midy)
         let span = MKCoordinateSpanMake(1, 1)
         let region = MKCoordinateRegion(center: cameraPos, span: span)
         appleMapView.setRegion(region, animated: true)
-*/
+        /*
         
         
         let zoomLevel: Float = Float(1/routeDist) * 7.0
@@ -141,7 +129,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         mapView.padding = mapInsets
         mapView.myLocationEnabled = true
         self.view = mapView
-
+        */
         
         //draw start, stop, and wayPoint on the map
         drawMarker(latArray[startIndex], lng: lngArray[startIndex], address: addressArray[startIndex])
@@ -149,10 +137,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], address: addressArray[wayPointIndex])
         
         
-        
+        /*
         routePolyline.strokeWidth = polylineWidth
         routePolyline.map = mapView
-
+*/
+        
         
         //mapView.mapType = kGMSTypeSatellite
         //let minimumPath = GMSPolyline(path: minPaths[0])
@@ -184,7 +173,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-    
+        
         print("setting lat and lng")
         setLatandLng(addressArray, lats: &latArray, lngs: &lngArray)
         
@@ -195,11 +184,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             latArray[startIndex] = locValue.latitude
             lngArray[startIndex] = locValue.longitude
         }
-
+        
         print("creating map")
         createMap()
     }
-
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -207,4 +196,5 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
 }
+
 

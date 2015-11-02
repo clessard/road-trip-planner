@@ -56,21 +56,47 @@ class StartViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {
+        print("entered segue")
         //if the user wants a map
         if (segue.identifier == "mapSegue")
         {
+            print("hit map segue")
             let svc = segue.destinationViewController as! ViewController
+            print("entering important info")
             svc.addressArray[startIndex] = EnterStart.text!
+            print("entered 1")
             svc.addressArray[stopIndex] = EnterFinish.text!
+            print("entered 2")
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
+            print("entered 3")
             if(CurrentLoc.on)
             {
+                print("turned current loc on")
                 svc.useCurrentLocation = true
+                print("done turning on")
+            }
+        }
+        if (segue.identifier == "appleMapSegue")
+        {
+            print("hit map segue")
+            let svc = segue.destinationViewController as! appleMapViewController
+            print("entering important info")
+            svc.addressArray[startIndex] = EnterStart.text!
+            print("entered 1")
+            svc.addressArray[stopIndex] = EnterFinish.text!
+            print("entered 2")
+            svc.addressArray[wayPointIndex] = EnterWayPoint.text!
+            print("entered 3")
+            if(CurrentLoc.on)
+            {
+                print("turned current loc on")
+                svc.useCurrentLocation = true
+                print("done turning on")
             }
         }
             
         //if the user wants a list of routes
-        else if (segue.identifier == "routesSegue")
+        if (segue.identifier == "routesSegue")
         {
             let svc = segue.destinationViewController as! RoutesViewController;
             svc.startAddress = EnterStart.text!;
