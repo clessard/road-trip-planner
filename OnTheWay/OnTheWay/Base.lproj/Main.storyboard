@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QsJ-1J-HG2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QsJ-1J-HG2">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,7 +13,7 @@
                         <viewControllerLayoutGuide type="top" id="oeN-hU-fej"/>
                         <viewControllerLayoutGuide type="bottom" id="d1i-A3-bFf"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="GMSMapView">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MKMapView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -25,6 +25,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2492" y="198"/>
+        </scene>
+        <!--Apple Map View Controller-->
+        <scene sceneID="ouV-rb-60Q">
+            <objects>
+                <viewController id="niW-jh-VLT" customClass="appleMapViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fpf-VO-bc0"/>
+                        <viewControllerLayoutGuide type="bottom" id="6bI-9f-6B2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Nh1-ki-G80">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pgY-g9-fQA">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pgY-g9-fQA" firstAttribute="top" secondItem="Nh1-ki-G80" secondAttribute="top" id="X8N-G5-sM6"/>
+                            <constraint firstItem="pgY-g9-fQA" firstAttribute="bottom" secondItem="6bI-9f-6B2" secondAttribute="top" id="YPY-X6-5g3"/>
+                            <constraint firstItem="pgY-g9-fQA" firstAttribute="leading" secondItem="Nh1-ki-G80" secondAttribute="leading" id="pru-Sd-22L"/>
+                            <constraint firstAttribute="trailing" secondItem="pgY-g9-fQA" secondAttribute="trailing" id="uBo-4D-xyx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="appleMapView" destination="pgY-g9-fQA" id="sLf-tv-7RT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ele-AJ-YsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2492" y="870"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="hBR-cA-uvL">
@@ -76,7 +108,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use current location as Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-MB-rJl">
                                 <rect key="frame" x="81" y="399" width="219" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
@@ -85,10 +117,18 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2015-10-27 at 8.53.11 PM" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
                                 <rect key="frame" x="20" y="31" width="347" height="140"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
+                                <rect key="frame" x="141" y="383" width="70" height="30"/>
+                                <state key="normal" title="AppleMap"/>
+                                <connections>
+                                    <segue destination="niW-jh-VLT" kind="show" identifier="appleMapSegue" id="SKg-FW-pXM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="CurrentLoc" destination="vbq-Dt-MTS" id="NvN-zN-RAq"/>
                         <outlet property="EnterFinish" destination="iGb-EF-ieZ" id="mXk-lM-3SQ"/>
                         <outlet property="EnterStart" destination="AO8-iY-fdG" id="rMK-xZ-BjJ"/>
                         <outlet property="EnterWayPoint" destination="Dk8-oN-RdM" id="ddi-GL-Xak"/>
