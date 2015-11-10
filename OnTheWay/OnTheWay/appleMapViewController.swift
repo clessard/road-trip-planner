@@ -17,10 +17,11 @@
 import UIKit
 import SwiftyJSON
 import MapKit
+import GoogleMaps
 
 
-class appleMapViewController: UIViewController, CLLocationManagerDelegate {
-    
+class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
+{
     @IBOutlet weak var appleMapView: MKMapView!
     let locationManager = CLLocationManager()
     let polylineWidth : CGFloat = 5;
@@ -34,6 +35,39 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate {
     var lngArray = [0.0, 0.0, 0.0]
     var addressArray = ["", "", ""]
     
+    //button click that gets your directions from midPoint to the end of your route
+    @IBAction func Navigate2(sender: AnyObject)
+    {
+        let endCoord = CLLocationCoordinate2D(latitude: latArray[stopIndex], longitude: lngArray[stopIndex])
+        let midCoord = CLLocationCoordinate2D(latitude: latArray[wayPointIndex], longitude: lngArray[wayPointIndex])
+        
+        let stopMark = MKPlacemark(coordinate: endCoord, addressDictionary: nil)
+        let midMark = MKPlacemark(coordinate: midCoord, addressDictionary: nil)
+        
+        let finish = MKMapItem(placemark: stopMark)
+        let mid = MKMapItem(placemark: midMark)
+        
+        let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
+        
+        MKMapItem.openMapsWithItems([mid, finish], launchOptions: options as? [String : AnyObject])
+    }
+    
+    //button click that gets you turn by turn directions from start to mid point
+    @IBAction func Navigate(sender: AnyObject) {
+        let startCoord = CLLocationCoordinate2D(latitude: latArray[startIndex], longitude: lngArray[startIndex])
+        let midCoord = CLLocationCoordinate2D(latitude: latArray[wayPointIndex], longitude: lngArray[wayPointIndex])
+        
+        let startMark = MKPlacemark(coordinate: startCoord, addressDictionary: nil)
+        let midMark = MKPlacemark(coordinate: midCoord, addressDictionary: nil)
+        
+        let start = MKMapItem(placemark: startMark)
+        let mid = MKMapItem(placemark: midMark)
+        
+        let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving, MKLaunchOptionsShowsTrafficKey: true]
+        
+        MKMapItem.openMapsWithItems([start, mid], launchOptions: options as? [String : AnyObject])
+        
+    }
     
     //returns an NSString that is the correct url to use to request directions
     private func getDirectionsUrl() -> NSString
@@ -54,28 +88,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate {
         return url
     }
     
-    
-    /**
-     * Function used to get the current location of the phone
-     */
-    
-    /*
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
-    {
-        //let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        //print("locations = \(locValue.latitude) \(locValue.longitude)")
-        // Shows the current location on the map if the app is authorized to do so
-        if status == .AuthorizedWhenInUse
-        {
-            
-            locationManager.startUpdatingLocation()
-            
-            mapView.myLocationEnabled = true
-            mapView.settings.myLocationButton = true
-        }
-    }
-*/
-    
     //draws a marker on the map
     private func drawMarker(lat: Double, lng: Double, address: String)
     {
@@ -88,65 +100,41 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    //creates a map with three points on it and a polyline of the route
-    private func createMap()
+    //gets polyline info from Google Maps and puts it in a format MapKit can handle
+    private func getPolyline() -> MKPolyline
     {
-        /*
-        //getting polyline info
         let jsonDirURL = JsonURL(url: getDirectionsUrl())
         let encyptedPolyline = jsonDirURL.getEncryptedPolyline().string
         
-        //GMSPath encapsulates an immutable array of CLLocationCooordinate2D. We might be able to use this to
-        //use apple maps?
         let directionsPath: GMSPath = GMSPath(fromEncodedPath: encyptedPolyline)
-        let routePolyline = GMSPolyline(path: directionsPath)
+        let length = directionsPath.count()
+        var pointsInLine: [CLLocationCoordinate2D] = []
         
-        // adapting zoom given start to finish distance
-        let x = latArray[startIndex] - latArray[stopIndex]
-        let y = lngArray[startIndex] - lngArray[stopIndex]
-        let routeDist = sqrt(pow(x,2) + pow(y,2))
-        */
-        
+        var i: UInt = 0
+        for i = 0; i < length; ++i
+        {
+            pointsInLine.append(directionsPath.coordinateAtIndex(i))
+        }
+        let polyline = MKPolyline(coordinates: &pointsInLine, count: Int(length))
+        return polyline
+    }
+
+    //creates a map with three points on it
+    private func createMap()
+    {
         // camera view is in the middle of the route
         let midx = (latArray[startIndex] + latArray[stopIndex])/2
         let midy = (lngArray[startIndex] + lngArray[stopIndex])/2
-
-        
         
         let cameraPos = CLLocationCoordinate2D(latitude: midx, longitude: midy)
         let span = MKCoordinateSpanMake(1, 1)
         let region = MKCoordinateRegion(center: cameraPos, span: span)
         appleMapView.setRegion(region, animated: true)
-        /*
-        
-        
-        let zoomLevel: Float = Float(1/routeDist) * 7.0
-        let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: zoomLevel)
-        //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
-        mapView = GMSMapView.mapWithFrame(CGRectZero, camera: camera)
-        mapView.settings.compassButton = true
-        let mapInsets = UIEdgeInsetsMake(100.0, 100.0, 100.0, 100.0)
-        mapView.padding = mapInsets
-        mapView.myLocationEnabled = true
-        self.view = mapView
-        */
         
         //draw start, stop, and wayPoint on the map
         drawMarker(latArray[startIndex], lng: lngArray[startIndex], address: addressArray[startIndex])
         drawMarker(latArray[stopIndex], lng: lngArray[stopIndex], address: addressArray[stopIndex])
         drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], address: addressArray[wayPointIndex])
-        
-        
-        /*
-        routePolyline.strokeWidth = polylineWidth
-        routePolyline.map = mapView
-*/
-        
-        
-        //mapView.mapType = kGMSTypeSatellite
-        //let minimumPath = GMSPolyline(path: minPaths[0])
-        //minimumPath.map = mapView
-        
     }
     
     //sets the latitude and longitude values to the correct values based on the passed in addresses
@@ -163,36 +151,45 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate {
     //renders the map on the screen based on user input
     override func viewDidLoad()
     {
-        print("entered viewDIdLoad")
         let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
-        
         super.viewDidLoad()
-        
-        print("getting current location")
+        self.appleMapView.delegate = self
+
         // Used to get the current location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        print("setting lat and lng")
         setLatandLng(addressArray, lats: &latArray, lngs: &lngArray)
-        
-        print("setting lat and lng is using current loc")
-        // Sets the start location to the current location if necessary
         if(useCurrentLocation)
         {
             latArray[startIndex] = locValue.latitude
             lngArray[startIndex] = locValue.longitude
         }
         
-        print("creating map")
         createMap()
+        let polyline = getPolyline()
+        appleMapView.addOverlay(polyline)
+    }
+    
+    //function that renders the polyline on the screen. Not entirely sure how this works. 
+    //It is never call. Code modified slightly from
+    //http://rshankar.com/how-to-add-mapview-annotation-and-draw-polyline-in-swift/
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        print("called appleMapView")
+        if overlay is MKPolyline {
+            print("overlay is MKPolyline")
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = UIColor.blueColor()
+            polylineRenderer.lineWidth = polylineWidth
+            return polylineRenderer
+        }
+        return nil
     }
     
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }

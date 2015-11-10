@@ -25,6 +25,7 @@ public class JsonURL {
         let searchURL : NSURL = NSURL(string: urlStr as String)!
         return searchURL
     }
+
     
     //gets an encrypted polyline from a JSON file
     public func getEncryptedPolyline() -> JSON

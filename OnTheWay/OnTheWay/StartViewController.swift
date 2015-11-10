@@ -41,7 +41,9 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad()
     {
+        print("loading view")
         super.viewDidLoad()
+        print("loaded super view")
         
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
@@ -69,12 +71,15 @@ class StartViewController: UIViewController {
             print("entered 2")
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
             print("entered 3")
+            
+            
             if(CurrentLoc.on)
             {
                 print("turned current loc on")
                 svc.useCurrentLocation = true
                 print("done turning on")
             }
+
         }
         if (segue.identifier == "appleMapSegue")
         {
@@ -87,12 +92,15 @@ class StartViewController: UIViewController {
             print("entered 2")
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
             print("entered 3")
+            
+            
             if(CurrentLoc.on)
             {
                 print("turned current loc on")
                 svc.useCurrentLocation = true
                 print("done turning on")
             }
+
         }
             
         //if the user wants a list of routes
