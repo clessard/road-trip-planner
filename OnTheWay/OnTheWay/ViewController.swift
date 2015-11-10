@@ -24,7 +24,6 @@ import MapKit
 
 class ViewController: UIViewController, CLLocationManagerDelegate {
     
-    // The view that is the Google map
     @IBOutlet var mapView: GMSMapView!
     
     let locationManager = CLLocationManager()
@@ -63,8 +62,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     /**
     * Function used to get the current location of the phone
     */
-    
-    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         //let locValue:CLLocationCoordinate2D = manager.location!.coordinate
@@ -79,21 +76,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             mapView.settings.myLocationButton = true
         }
     }
+
     
     //draws a marker on the map
     private func drawMarker(lat: Double, lng: Double, address: String)
     {
-        /*
-        let location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-        let marker = MKPointAnnotation()
-        marker.coordinate = location
-        marker.title = address
-        appleMapView.addAnnotation(marker)
-*/
-        
-        
-        
-        
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(lat, lng)
         marker.title = address
@@ -124,14 +111,6 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         let midx = (latArray[startIndex] + latArray[stopIndex])/2
         let midy = (lngArray[startIndex] + lngArray[stopIndex])/2
         
-        /*
-        let cameraPos = CLLocationCoordinate2D(latitude: midx, longitude: midy)
-        let span = MKCoordinateSpanMake(1, 1)
-        let region = MKCoordinateRegion(center: cameraPos, span: span)
-        appleMapView.setRegion(region, animated: true)
-*/
-        
-        
         let zoomLevel: Float = Float(1/routeDist) * 7.0
         let camera = GMSCameraPosition.cameraWithLatitude(midx, longitude: midy, zoom: zoomLevel)
         //self.wayPointLat,longitude: self.wayPointLng, zoom: Float(Int((1/routeDist) * 7)))
@@ -148,15 +127,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         drawMarker(latArray[stopIndex], lng: lngArray[stopIndex], address: addressArray[stopIndex])
         drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], address: addressArray[wayPointIndex])
         
-        
-        
         routePolyline.strokeWidth = polylineWidth
         routePolyline.map = mapView
-
-        
-        //mapView.mapType = kGMSTypeSatellite
-        //let minimumPath = GMSPolyline(path: minPaths[0])
-        //minimumPath.map = mapView
         
     }
     
@@ -180,6 +152,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         
         print("getting current location")
+        
         // Used to get the current location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -190,6 +163,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         print("setting lat and lng is using current loc")
         // Sets the start location to the current location if necessary
+        
+        
         if(useCurrentLocation)
         {
             latArray[startIndex] = locValue.latitude
