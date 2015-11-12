@@ -10,8 +10,8 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oeN-hU-fej"/>
-                        <viewControllerLayoutGuide type="bottom" id="d1i-A3-bFf"/>
+                        <viewControllerLayoutGuide type="top" id="KOu-vW-0om"/>
+                        <viewControllerLayoutGuide type="bottom" id="k1K-ja-VT1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MKMapView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -24,22 +24,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2492" y="198"/>
+            <point key="canvasLocation" x="2492" y="197.99999999999997"/>
         </scene>
         <!--Apple Map View Controller-->
         <scene sceneID="ouV-rb-60Q">
             <objects>
                 <viewController id="niW-jh-VLT" customClass="appleMapViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="fpf-VO-bc0"/>
-                        <viewControllerLayoutGuide type="bottom" id="6bI-9f-6B2"/>
+                        <viewControllerLayoutGuide type="top" id="WGN-0b-8N3"/>
+                        <viewControllerLayoutGuide type="bottom" id="sfw-vI-NbT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nh1-ki-G80">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pgY-g9-fQA">
-                                <rect key="frame" x="0.0" y="43" width="600" height="557"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pgY-g9-fQA">
+                                <rect key="frame" x="0.0" y="43" width="320" height="557"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-J1-hd0">
                                 <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
@@ -69,12 +69,6 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="pgY-g9-fQA" firstAttribute="top" secondItem="Nh1-ki-G80" secondAttribute="top" id="X8N-G5-sM6"/>
-                            <constraint firstItem="pgY-g9-fQA" firstAttribute="bottom" secondItem="6bI-9f-6B2" secondAttribute="top" id="YPY-X6-5g3"/>
-                            <constraint firstItem="pgY-g9-fQA" firstAttribute="leading" secondItem="Nh1-ki-G80" secondAttribute="leading" id="pru-Sd-22L"/>
-                            <constraint firstAttribute="trailing" secondItem="pgY-g9-fQA" secondAttribute="trailing" id="uBo-4D-xyx"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="appleMapView" destination="pgY-g9-fQA" id="sLf-tv-7RT"/>
@@ -82,15 +76,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ele-AJ-YsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2610" y="867"/>
+            <point key="canvasLocation" x="2610" y="866.99999999999989"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="hBR-cA-uvL">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="QsJ-1J-HG2" customClass="StartViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7oq-LJ-qJu"/>
-                        <viewControllerLayoutGuide type="bottom" id="uhd-1x-G0f"/>
+                        <viewControllerLayoutGuide type="top" id="FF6-7M-g7t"/>
+                        <viewControllerLayoutGuide type="bottom" id="AIb-EO-7zn"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yGd-V3-Plv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -140,14 +134,14 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
                                 <rect key="frame" x="166" y="458" width="51" height="31"/>
                             </switch>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="33F2D9FF-D092-4F3C-B6BD-2F96330A7BB6" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ACCDCA17-B3AC-4FAF-9EED-0F54E31957D8" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
                                 <rect key="frame" x="20" y="31" width="347" height="140"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
                                 <rect key="frame" x="141" y="383" width="70" height="30"/>
                                 <state key="normal" title="AppleMap"/>
                                 <connections>
-                                    <segue destination="niW-jh-VLT" kind="show" identifier="appleMapSegue" id="SKg-FW-pXM"/>
+                                    <segue destination="niW-jh-VLT" kind="presentation" identifier="appleMapSegue" id="SKg-FW-pXM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -169,8 +163,8 @@
             <objects>
                 <viewController id="HPS-jl-iEx" customClass="RoutesViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Jji-Fq-TgH"/>
-                        <viewControllerLayoutGuide type="bottom" id="V0z-sG-6mP"/>
+                        <viewControllerLayoutGuide type="top" id="6S9-Nj-3zN"/>
+                        <viewControllerLayoutGuide type="bottom" id="eoN-U0-kN9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rdn-7E-pr1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -213,11 +207,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qti-ej-p9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1830" y="187"/>
+            <point key="canvasLocation" x="1428.75" y="163.73239436619718"/>
         </scene>
     </scenes>
     <resources>
-        <image name="33F2D9FF-D092-4F3C-B6BD-2F96330A7BB6" width="366" height="168">
+        <image name="ACCDCA17-B3AC-4FAF-9EED-0F54E31957D8" width="366" height="168">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -4371,7 +4365,7 @@ A8rcAAPK5AADyucAA8r5AAPK/AADywEAAAAAAAAEAQAAAAAAAABCAAAAAAAAAAAAAAAAAAPLAw
         </image>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="QH1-IA-Q5K"/>
         <segue reference="ktR-61-LQA"/>
-        <segue reference="HMX-S9-mYx"/>
     </inferredMetricsTieBreakers>
 </document>
