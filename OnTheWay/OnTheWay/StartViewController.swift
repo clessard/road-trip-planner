@@ -102,15 +102,19 @@ class StartViewController: UIViewController {
             }
 
         }
-            
-        //if the user wants a list of routes
+        
         if (segue.identifier == "routesSegue")
         {
-            let svc = segue.destinationViewController as! RoutesViewController;
-            svc.startAddress = EnterStart.text!;
-            svc.stopAddress = EnterFinish.text!;
-            svc.wayPointAddress = EnterWayPoint.text!;
+            print("hit routes segue")
+            let svc = segue.destinationViewController as! RoutesViewController
+            svc.startAddress = EnterStart.text!
+            print("entered 1")
+            svc.stopAddress = EnterFinish.text!
+            print("entered 2")
+            svc.wayPointAddress = EnterWayPoint.text!
         }
+        
+       
     }
     
     // MARK: Actions

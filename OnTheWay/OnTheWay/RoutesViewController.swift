@@ -8,17 +8,42 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController {
+class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var startAddress = ""
     var stopAddress = ""
     var wayPointAddress = ""
     
-    @IBOutlet weak var routesTable: UITableView!
+    var routes = [String]()
+    
+    
+    @IBOutlet weak var routesTableView: UITableView!    
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return routes.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! TableViewCell
+        
+        let row = indexPath.row
+        cell.tableCellData.text = routes[row]
+        
+        return cell
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        routesTableView.delegate = self
+        routesTableView.dataSource = self
 
+        routes = [startAddress, wayPointAddress, stopAddress]
+        
     }
 
     override func didReceiveMemoryWarning() {

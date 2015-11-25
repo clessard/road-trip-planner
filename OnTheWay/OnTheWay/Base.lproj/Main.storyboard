@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QsJ-1J-HG2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QsJ-1J-HG2">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -111,18 +111,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="HPS-jl-iEx" kind="popoverPresentation" popoverAnchorView="TTh-9N-AJe" id="cXo-mY-1ZY">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue0-fh-OvK">
-                                <rect key="frame" x="153" y="345" width="56" height="30"/>
-                                <state key="normal" title="GetMap">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapSegue" id="ktR-61-LQA"/>
+                                    <segue destination="HPS-jl-iEx" kind="presentation" identifier="routesSegue" id="ANr-H6-hOF"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use current location as Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-MB-rJl">
@@ -134,7 +123,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
                                 <rect key="frame" x="166" y="458" width="51" height="31"/>
                             </switch>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="ACCDCA17-B3AC-4FAF-9EED-0F54E31957D8" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="5EFE0CD4-C1B7-495A-8769-B2D0145C2F32" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
                                 <rect key="frame" x="20" y="31" width="347" height="140"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
@@ -142,6 +131,15 @@
                                 <state key="normal" title="AppleMap"/>
                                 <connections>
                                     <segue destination="niW-jh-VLT" kind="presentation" identifier="appleMapSegue" id="SKg-FW-pXM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ue0-fh-OvK">
+                                <rect key="frame" x="138" y="345" width="77" height="30"/>
+                                <state key="normal" title="Get Map">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" identifier="mapSegue" id="ktR-61-LQA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -156,7 +154,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sii-an-U7K" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1666" y="903"/>
+            <point key="canvasLocation" x="1002" y="1239"/>
         </scene>
         <!--Routes View Controller-->
         <scene sceneID="vim-d1-Dac">
@@ -198,20 +196,44 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="3g9-XA-1xv">
                                         <rect key="frame" x="0.0" y="-8" width="434" height="413"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" id="eVq-oQ-tL6" customClass="TableViewCell" customModule="OnTheWay" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="22" width="434" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eVq-oQ-tL6" id="dI5-vd-Jb7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="434" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IpI-wE-pfz">
+                                                            <rect key="frame" x="0.0" y="8" width="285" height="27.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="tableCellData" destination="IpI-wE-pfz" id="csO-nU-2A4"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
                                     </tableView>
                                 </subviews>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="routesTableView" destination="3g9-XA-1xv" id="RNF-B5-mB9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qti-ej-p9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428.75" y="163.73239436619718"/>
+            <point key="canvasLocation" x="1222" y="-18"/>
         </scene>
     </scenes>
     <resources>
-        <image name="ACCDCA17-B3AC-4FAF-9EED-0F54E31957D8" width="366" height="168">
+        <image name="5EFE0CD4-C1B7-495A-8769-B2D0145C2F32" width="366" height="168">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -4366,6 +4388,6 @@ A8rcAAPK5AADyucAA8r5AAPK/AADywEAAAAAAAAEAQAAAAAAAABCAAAAAAAAAAAAAAAAAAPLAw
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="QH1-IA-Q5K"/>
-        <segue reference="ktR-61-LQA"/>
+        <segue reference="EfP-jf-mKE"/>
     </inferredMetricsTieBreakers>
 </document>

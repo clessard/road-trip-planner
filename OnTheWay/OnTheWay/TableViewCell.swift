@@ -1,5 +1,5 @@
 //
-//  StopTableViewCell.swift
+//  StartTableViewCell.swift
 //  OnTheWay
 //
 //  Created by Carli Lessard on 9/27/15.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-class StopTableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var stopAddressLabel: UILabel!
+    @IBOutlet weak var tableCellData: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
