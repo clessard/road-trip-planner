@@ -163,6 +163,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     //sets the latitude and longitude values to the correct values based on the passed in addresses
     private func setMidLatandLng()
     {
+        print("setting mid lat and lng")
         let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[wayPointIndex])
         addressStr.setLatandLng(&latArray[wayPointIndex], lng: &lngArray[wayPointIndex])
     }
@@ -174,7 +175,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let stop : String = "\(latArray[stopIndex])" + "," + "\(lngArray[stopIndex])"
         let count = waypointNameOptions.count
         
-        var minDist = 40000000      //initially set to the circumference of the Earth in meters
+        var minTime = 31540000      //initially set to the number of seconds in a year
         var tempAddress = ""
         var tempName = ""
         var dirUrl = NSString()
@@ -184,11 +185,11 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             let midPoint : String = waypointAddressOptions[i] as! String
             dirUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
             let directionsURL = JsonURL(url: dirUrl)
-            let dist = directionsURL.getDistance()
+            let time = directionsURL.getTime()
             
-            if(dist < minDist)
+            if(time < minTime)
             {
-                minDist = dist
+                minTime = time
                 tempAddress = waypointAddressOptions[i] as! String
                 tempName = waypointNameOptions[i] as! String
             }
@@ -223,6 +224,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //check to see if we are searching for a generic waypoint
         if(waypointIsAddress == false)
         {
+            print("checking for generic waypoint")
             getPossibleWaypoints(start)
             findShortestRoute()
             setMidLatandLng()

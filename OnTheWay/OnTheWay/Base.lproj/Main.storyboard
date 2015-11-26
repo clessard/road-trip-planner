@@ -114,7 +114,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
                                 <rect key="frame" x="152" y="471" width="51" height="31"/>
                             </switch>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="F68EF91E-FAE4-4633-ABA5-13642C3986EF" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="DCBCA336-BFB3-40D9-8018-93860674D343" translatesAutoresizingMaskIntoConstraints="NO" id="ZVQ-TM-C6D">
                                 <rect key="frame" x="20" y="20" width="347" height="140"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
@@ -234,7 +234,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="F68EF91E-FAE4-4633-ABA5-13642C3986EF" width="366" height="168">
+        <image name="DCBCA336-BFB3-40D9-8018-93860674D343" width="366" height="168">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
