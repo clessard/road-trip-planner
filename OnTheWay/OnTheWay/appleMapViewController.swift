@@ -24,16 +24,23 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
 {
     @IBOutlet weak var appleMapView: MKMapView!
     let locationManager = CLLocationManager()
+    
     let polylineWidth : CGFloat = 5;
+    
     let startIndex = 0
     let stopIndex = 1
     let wayPointIndex = 2
     
     var useCurrentLocation = false
+    var waypointIsAddress = false
     
     var latArray = [0.0, 0.0, 0.0]
     var lngArray = [0.0, 0.0, 0.0]
     var addressArray = ["", "", ""]
+    var pinNamesArray = ["start", "finish", "wayPoint"]
+    
+    var waypointAddressOptions : NSMutableArray = []
+    var waypointNameOptions : NSMutableArray = []
     
     //button click that gets your directions from midPoint to the end of your route
     @IBAction func Navigate2(sender: AnyObject)
@@ -69,6 +76,14 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
     }
     
+    //populates waypointOptions with the addresses on possible waypoints
+    private func getPossibleWaypoints(start: String)
+    {
+        let location: String = addressArray[wayPointIndex] + "&location=" + start
+        let possibleWaypoints = JsonURL(url: "https://maps.googleapis.com/maps/api/place/radarsearch/json?radius=50000&keyword=" + location + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg")
+        possibleWaypoints.getPossibleAddresses(&waypointAddressOptions, waypointNameOptions: &waypointNameOptions)
+    }
+    
     //returns an NSString that is the correct url to use to request directions
     private func getDirectionsUrl() -> NSString
     {
@@ -89,15 +104,13 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     //draws a marker on the map
-    private func drawMarker(lat: Double, lng: Double, address: String)
+    private func drawMarker(lat: Double, lng: Double, name: String)
     {
-        
         let location = CLLocationCoordinate2D(latitude: lat, longitude: lng)
         let marker = MKPointAnnotation()
         marker.coordinate = location
-        marker.title = address
+        marker.title = name
         appleMapView.addAnnotation(marker)
-        
     }
     
     //gets polyline info from Google Maps and puts it in a format MapKit can handle
@@ -131,54 +144,100 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let region = MKCoordinateRegion(center: cameraPos, span: span)
         appleMapView.setRegion(region, animated: true)
         
-        //draw start, stop, and wayPoint on the map
-        drawMarker(latArray[startIndex], lng: lngArray[startIndex], address: addressArray[startIndex])
-        drawMarker(latArray[stopIndex], lng: lngArray[stopIndex], address: addressArray[stopIndex])
-        drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], address: addressArray[wayPointIndex])
+        drawMarker(latArray[startIndex], lng: lngArray[startIndex], name: pinNamesArray[startIndex])
+        drawMarker(latArray[stopIndex], lng: lngArray[stopIndex], name: pinNamesArray[stopIndex])
+        drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], name: pinNamesArray[wayPointIndex])
     }
     
     //sets the latitude and longitude values to the correct values based on the passed in addresses
-    private func setLatandLng(addresses: [String], inout lats: [Double], inout lngs: [Double])
+    private func setLatandLng()
     {
-        let length = addresses.count
+        let length = addressArray.count
         for index in 0...length - 1
         {
-            let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addresses[index])
-            addressStr.setLatandLng(&lats[index], lng: &lngs[index])
+            let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[index])
+            addressStr.setLatandLng(&latArray[index], lng: &lngArray[index])
         }
+    }
+    
+    //sets the latitude and longitude values to the correct values based on the passed in addresses
+    private func setMidLatandLng()
+    {
+        let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[wayPointIndex])
+        addressStr.setLatandLng(&latArray[wayPointIndex], lng: &lngArray[wayPointIndex])
+    }
+    
+    //gets the shortest route of all the waypoint options
+    private func findShortestRoute()
+    {
+        let start : String = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
+        let stop : String = "\(latArray[stopIndex])" + "," + "\(lngArray[stopIndex])"
+        let count = waypointNameOptions.count
+        
+        var minDist = 40000000      //initially set to the circumference of the Earth in meters
+        var tempAddress = ""
+        var tempName = ""
+        var dirUrl = NSString()
+        
+        for var i = 0; i < count; ++i
+        {
+            let midPoint : String = waypointAddressOptions[i] as! String
+            dirUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
+            let directionsURL = JsonURL(url: dirUrl)
+            let dist = directionsURL.getDistance()
+            
+            if(dist < minDist)
+            {
+                minDist = dist
+                tempAddress = waypointAddressOptions[i] as! String
+                tempName = waypointNameOptions[i] as! String
+            }
+        }
+        pinNamesArray[wayPointIndex] = tempName
+        addressArray[wayPointIndex] = tempAddress
     }
     
     //renders the map on the screen based on user input
     override func viewDidLoad()
     {
         let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
+        var start: String = ""
+        
         super.viewDidLoad()
         self.appleMapView.delegate = self
-
+        
         // Used to get the current location
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
-        setLatandLng(addressArray, lats: &latArray, lngs: &lngArray)
+
+        //set the coordinates
+        setLatandLng()
         if(useCurrentLocation)
         {
             latArray[startIndex] = locValue.latitude
             lngArray[startIndex] = locValue.longitude
         }
+        start = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
         
+        //check to see if we are searching for a generic waypoint
+        if(waypointIsAddress == false)
+        {
+            getPossibleWaypoints(start)
+            findShortestRoute()
+            setMidLatandLng()
+        }
+
         createMap()
         let polyline = getPolyline()
         appleMapView.addOverlay(polyline)
     }
     
-    //function that renders the polyline on the screen. Not entirely sure how this works. 
+    //function that renders the polyline on the screen. Not entirely sure how this works.
     //It is never call. Code modified slightly from
     //http://rshankar.com/how-to-add-mapview-annotation-and-draw-polyline-in-swift/
     func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
-        print("called appleMapView")
         if overlay is MKPolyline {
-            print("overlay is MKPolyline")
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             polylineRenderer.strokeColor = UIColor.blueColor()
             polylineRenderer.lineWidth = polylineWidth
@@ -193,5 +252,3 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
 }
-
-

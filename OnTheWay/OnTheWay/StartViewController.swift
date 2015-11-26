@@ -15,6 +15,7 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterWayPoint: UITextField!
     @IBOutlet weak var EnterFinish: UITextField!
     @IBOutlet weak var CurrentLoc: UISwitch!
+    @IBOutlet weak var waypointAsAddress: UISwitch!
     
     let startIndex = 0;
     let stopIndex = 1;
@@ -41,9 +42,7 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad()
     {
-        print("loading view")
         super.viewDidLoad()
-        print("loaded super view")
         
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.
@@ -58,85 +57,31 @@ class StartViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
     {
-        print("entered segue")
-        //if the user wants a map
-        if (segue.identifier == "mapSegue")
-        {
-            print("hit map segue")
-            let svc = segue.destinationViewController as! ViewController
-            print("entering important info")
-            svc.addressArray[startIndex] = EnterStart.text!
-            print("entered 1")
-            svc.addressArray[stopIndex] = EnterFinish.text!
-            print("entered 2")
-            svc.addressArray[wayPointIndex] = EnterWayPoint.text!
-            print("entered 3")
-            
-            
-            if(CurrentLoc.on)
-            {
-                print("turned current loc on")
-                svc.useCurrentLocation = true
-                print("done turning on")
-            }
-
-        }
         if (segue.identifier == "appleMapSegue")
         {
-            print("hit map segue")
             let svc = segue.destinationViewController as! appleMapViewController
-            print("entering important info")
             svc.addressArray[startIndex] = EnterStart.text!
-            print("entered 1")
             svc.addressArray[stopIndex] = EnterFinish.text!
-            print("entered 2")
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
-            print("entered 3")
-            
             
             if(CurrentLoc.on)
             {
-                print("turned current loc on")
                 svc.useCurrentLocation = true
-                print("done turning on")
             }
-
+            if(waypointAsAddress.on)
+            {
+                svc.waypointIsAddress = true
+            }
         }
         
         if (segue.identifier == "routesSegue")
         {
-            print("hit routes segue")
             let svc = segue.destinationViewController as! RoutesViewController
             svc.startAddress = EnterStart.text!
-            print("entered 1")
             svc.stopAddress = EnterFinish.text!
-            print("entered 2")
             svc.wayPointAddress = EnterWayPoint.text!
         }
-        
        
     }
-    
-    // MARK: Actions
-    //@IBAction func getDirections(sender: UIButton) {
-    //    var directions = "https://maps.googleapis.com/maps/api/directions/json?origin="
-    //    directions += startTextField.text
-    //    directions += "&destination="
-    //    directions += finishTextField.text
-    //    directions += "&waypoints="
-    //    directions += waypointTextField.text
-    //    directions += "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
-    //}
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
