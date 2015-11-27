@@ -98,4 +98,19 @@ public class JsonURL {
         }
         return distance
     }
+    
+    //gets the time a route will take
+    public func getDistance() -> Int
+    {
+        let json = getJsonFile()
+        let count = (json["routes"][0]["legs"].count)
+        var distance = 0
+        
+        for var i = 0; i < count; ++i
+        {
+            let legDist : Int = Int((json["routes"][0]["legs"][i]["distance"]["value"]).stringValue)!
+            distance += legDist
+        }
+        return distance
+    }
 }

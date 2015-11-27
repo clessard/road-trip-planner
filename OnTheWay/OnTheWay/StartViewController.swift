@@ -64,6 +64,7 @@ class StartViewController: UIViewController {
             svc.addressArray[stopIndex] = EnterFinish.text!
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
             
+            
             if(CurrentLoc.on)
             {
                 svc.useCurrentLocation = true

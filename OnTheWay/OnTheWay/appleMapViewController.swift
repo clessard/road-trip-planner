@@ -20,27 +20,30 @@ import MapKit
 import GoogleMaps
 
 
+//global constants
+let startIndex = 0
+let stopIndex = 1
+let wayPointIndex = 2
+
 class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate
 {
     @IBOutlet weak var appleMapView: MKMapView!
-    let locationManager = CLLocationManager()
+    //let locationManager = CLLocationManager()
     
     let polylineWidth : CGFloat = 5;
     
-    let startIndex = 0
-    let stopIndex = 1
-    let wayPointIndex = 2
+    //to tell if the user pickedan option from the route options table
+    var fromRouteOptionsTable = false;
     
+    //to be passed to RouteOptions object
     var useCurrentLocation = false
     var waypointIsAddress = false
+    var addressArray = ["", "", ""]
     
+    //stuff to get from RouteOptions
     var latArray = [0.0, 0.0, 0.0]
     var lngArray = [0.0, 0.0, 0.0]
-    var addressArray = ["", "", ""]
     var pinNamesArray = ["start", "finish", "wayPoint"]
-    
-    var waypointAddressOptions : NSMutableArray = []
-    var waypointNameOptions : NSMutableArray = []
     
     //button click that gets your directions from midPoint to the end of your route
     @IBAction func Navigate2(sender: AnyObject)
@@ -74,14 +77,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         MKMapItem.openMapsWithItems([start, mid], launchOptions: options as? [String : AnyObject])
         
-    }
-    
-    //populates waypointOptions with the addresses on possible waypoints
-    private func getPossibleWaypoints(start: String)
-    {
-        let location: String = addressArray[wayPointIndex] + "&location=" + start
-        let possibleWaypoints = JsonURL(url: "https://maps.googleapis.com/maps/api/place/radarsearch/json?radius=50000&keyword=" + location + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg")
-        possibleWaypoints.getPossibleAddresses(&waypointAddressOptions, waypointNameOptions: &waypointNameOptions)
     }
     
     //returns an NSString that is the correct url to use to request directions
@@ -149,85 +144,38 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         drawMarker(latArray[wayPointIndex], lng: lngArray[wayPointIndex], name: pinNamesArray[wayPointIndex])
     }
     
-    //sets the latitude and longitude values to the correct values based on the passed in addresses
-    private func setLatandLng()
-    {
-        let length = addressArray.count
-        for index in 0...length - 1
-        {
-            let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[index])
-            addressStr.setLatandLng(&latArray[index], lng: &lngArray[index])
-        }
-    }
-    
-    //sets the latitude and longitude values to the correct values based on the passed in addresses
-    private func setMidLatandLng()
-    {
-        print("setting mid lat and lng")
-        let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[wayPointIndex])
-        addressStr.setLatandLng(&latArray[wayPointIndex], lng: &lngArray[wayPointIndex])
-    }
-    
-    //gets the shortest route of all the waypoint options
-    private func findShortestRoute()
-    {
-        let start : String = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
-        let stop : String = "\(latArray[stopIndex])" + "," + "\(lngArray[stopIndex])"
-        let count = waypointNameOptions.count
-        
-        var minTime = 31540000      //initially set to the number of seconds in a year
-        var tempAddress = ""
-        var tempName = ""
-        var dirUrl = NSString()
-        
-        for var i = 0; i < count; ++i
-        {
-            let midPoint : String = waypointAddressOptions[i] as! String
-            dirUrl = "https://maps.googleapis.com/maps/api/directions/json?origin=" + start + "&destination=" + stop + "&waypoints=" + midPoint + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg"
-            let directionsURL = JsonURL(url: dirUrl)
-            let time = directionsURL.getTime()
-            
-            if(time < minTime)
-            {
-                minTime = time
-                tempAddress = waypointAddressOptions[i] as! String
-                tempName = waypointNameOptions[i] as! String
-            }
-        }
-        pinNamesArray[wayPointIndex] = tempName
-        addressArray[wayPointIndex] = tempAddress
-    }
-    
     //renders the map on the screen based on user input
     override func viewDidLoad()
     {
-        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
-        var start: String = ""
+        //let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
+        //var start: String = ""
         
         super.viewDidLoad()
         self.appleMapView.delegate = self
         
-        // Used to get the current location
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-
-        //set the coordinates
-        setLatandLng()
-        if(useCurrentLocation)
-        {
-            latArray[startIndex] = locValue.latitude
-            lngArray[startIndex] = locValue.longitude
-        }
-        start = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
+        let routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
+                                        waypointIsAddress:waypointIsAddress)
         
-        //check to see if we are searching for a generic waypoint
-        if(waypointIsAddress == false)
+        latArray = routeOptions.latArray
+        lngArray = routeOptions.lngArray
+        
+        
+        //handles the case where the waypoint is generic and the user did not pick from the route options table
+        if(routeOptions.waypointOptions.count != 0 && fromRouteOptionsTable == false)
         {
-            print("checking for generic waypoint")
-            getPossibleWaypoints(start)
-            findShortestRoute()
-            setMidLatandLng()
+            let waypointOption = routeOptions.waypointOptions[0]
+            let lat = waypointOption.getLat()
+            let lng = waypointOption.getLng()
+            let address = waypointOption.getAddress()
+            let name = waypointOption.getName()
+            
+            
+            //set all the values in the arrays correctly
+            latArray[wayPointIndex] = lat
+            lngArray[wayPointIndex] = lng
+            addressArray[wayPointIndex] = address
+            pinNamesArray[wayPointIndex] = name
+            
         }
 
         createMap()

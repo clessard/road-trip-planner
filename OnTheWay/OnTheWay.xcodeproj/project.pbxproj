@@ -18,6 +18,8 @@
 		A8A05E381C063DFD001425EC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E371C063DFD001425EC /* TableViewCell.swift */; };
 		A8A05E3A1C063E22001425EC /* appleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E391C063E22001425EC /* appleMapViewController.swift */; };
 		A8A05E3C1C063E81001425EC /* JsonURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E3B1C063E81001425EC /* JsonURL.swift */; };
+		A8A05E3E1C06D701001425EC /* WaypointOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E3D1C06D701001425EC /* WaypointOption.swift */; };
+		A8A05E421C07B904001425EC /* RouteOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E411C07B904001425EC /* RouteOptions.swift */; };
 		AC10428151CC4B5DF639A02E /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2E99F56B849919ADB114D0C /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,8 @@
 		A8A05E371C063DFD001425EC /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/TableViewCell.swift"; sourceTree = "<group>"; };
 		A8A05E391C063E22001425EC /* appleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = appleMapViewController.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/appleMapViewController.swift"; sourceTree = "<group>"; };
 		A8A05E3B1C063E81001425EC /* JsonURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonURL.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/JsonURL.swift"; sourceTree = "<group>"; };
+		A8A05E3D1C06D701001425EC /* WaypointOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointOption.swift; sourceTree = "<group>"; };
+		A8A05E411C07B904001425EC /* RouteOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteOptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,8 @@
 				A8A05E391C063E22001425EC /* appleMapViewController.swift */,
 				0751D9571BAF46EA00BA91B9 /* LaunchScreen.xib */,
 				0751D94C1BAF46EA00BA91B9 /* Supporting Files */,
+				A8A05E3D1C06D701001425EC /* WaypointOption.swift */,
+				A8A05E411C07B904001425EC /* RouteOptions.swift */,
 			);
 			path = OnTheWay;
 			sourceTree = "<group>";
@@ -307,10 +313,12 @@
 				A8A05E3A1C063E22001425EC /* appleMapViewController.swift in Sources */,
 				A8A05E381C063DFD001425EC /* TableViewCell.swift in Sources */,
 				0751D9511BAF46EA00BA91B9 /* ViewController.swift in Sources */,
+				A8A05E3E1C06D701001425EC /* WaypointOption.swift in Sources */,
 				0740BB2D1BAF59C60016729A /* StartViewController.swift in Sources */,
 				0740BB331BAFAE910016729A /* RoutesViewController.swift in Sources */,
 				A8A05E3C1C063E81001425EC /* JsonURL.swift in Sources */,
 				0751D94F1BAF46EA00BA91B9 /* AppDelegate.swift in Sources */,
+				A8A05E421C07B904001425EC /* RouteOptions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
