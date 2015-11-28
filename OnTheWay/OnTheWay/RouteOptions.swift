@@ -29,6 +29,13 @@ public class RouteOptions{
     private var useCurrentLocation = false
     private var waypointIsAddress = false
     
+    public init()
+    {
+        self.addressArray = ["", "", ""]
+        self.useCurrentLocation = false
+        self.waypointIsAddress = false
+    }
+    
     public init(addressArray: [String], useCurrentLocation: Bool, waypointIsAddress: Bool)
     {
         self.addressArray = addressArray
@@ -39,12 +46,13 @@ public class RouteOptions{
     
     private func getArray()
     {
-        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
+        
         var start: String = ""
 
         setAllLatLng()
         if(useCurrentLocation)
         {
+            let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
             latArray[startIndex] = locValue.latitude
             lngArray[startIndex] = locValue.longitude
         }
@@ -80,7 +88,7 @@ public class RouteOptions{
     //sets the latitude and longitude values to the correct values based on the passed in addresses
     private func setOneLatLng(inout lat: Double, inout lng:Double, address: String)
     {
-        print("setting mid lat and lng")
+        //print("setting mid lat and lng")
         let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address)
         addressStr.setLatandLng(&lat, lng: &lng)
     }
@@ -139,6 +147,5 @@ public class RouteOptions{
             waypointOptions[minIndex] = unsortedMin
         }
     }
-
 
 }
