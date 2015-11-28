@@ -45,6 +45,10 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var lngArray = [0.0, 0.0, 0.0]
     var pinNamesArray = ["start", "finish", "wayPoint"]
     
+    // Route options set by the table, index of which option chosen
+    var routeOptions = RouteOptions()
+    var index = 0
+    
     //button click that gets your directions from midPoint to the end of your route
     @IBAction func Navigate2(sender: AnyObject)
     {
@@ -153,16 +157,15 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         super.viewDidLoad()
         self.appleMapView.delegate = self
         
-        let routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
-                                        waypointIsAddress:waypointIsAddress)
-        
-        latArray = routeOptions.latArray
-        lngArray = routeOptions.lngArray
-        
-        
         //handles the case where the waypoint is generic and the user did not pick from the route options table
         if(routeOptions.waypointOptions.count != 0 && fromRouteOptionsTable == false)
         {
+            let routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
+                waypointIsAddress:waypointIsAddress)
+            
+            latArray = routeOptions.latArray
+            lngArray = routeOptions.lngArray
+            
             let waypointOption = routeOptions.waypointOptions[0]
             let lat = waypointOption.getLat()
             let lng = waypointOption.getLng()
@@ -176,6 +179,20 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             addressArray[wayPointIndex] = address
             pinNamesArray[wayPointIndex] = name
             
+        }
+        else if (fromRouteOptionsTable)
+        {
+            latArray = routeOptions.latArray
+            lngArray = routeOptions.lngArray
+            let waypointOption = routeOptions.waypointOptions[index]
+            print("Getting info from routes table")
+            latArray[wayPointIndex] = waypointOption.getLat()
+            lngArray[wayPointIndex] = waypointOption.getLng()
+            addressArray[wayPointIndex] = waypointOption.getAddress()
+            pinNamesArray[wayPointIndex] = waypointOption.getName()
+            print("lat:\(latArray[wayPointIndex])")
+            print("long: \(lngArray[wayPointIndex])")
+            print("name: \(pinNamesArray[wayPointIndex])")
         }
 
         createMap()

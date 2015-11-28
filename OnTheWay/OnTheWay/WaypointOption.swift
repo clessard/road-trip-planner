@@ -18,6 +18,16 @@ public class WaypointOption {
     private var lng: Double
     private var address: String
     
+    public init()
+    {
+        self.routeTime = 0
+        self.routeDistance = 0
+        self.name = ""
+        self.lat = 0.0
+        self.lng = 0.0
+        self.address = ""
+    }
+    
     public init(routeTime: Int, routeDistance: Int, name: String,
                 lat: Double, lng: Double, address: String)
     {
