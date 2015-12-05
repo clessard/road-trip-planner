@@ -151,21 +151,12 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     private func setLatandLng()
     {
-        print("setting lat and lng")
         let length = addressArray.count
         for index in 0...length - 1
         {
             let addressStr = JsonURL(url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + addressArray[index])
             addressStr.setLatandLng(&latArray[index], lng: &lngArray[index])
         }
-        print("start lat is ")
-        print(latArray[startIndex])
-        print("stop lat is ")
-        print(latArray[stopIndex])
-        print("start lng is ")
-        print(lngArray[startIndex])
-        print("stop lng is ")
-        print(lngArray[stopIndex])
     }
     
     //renders the map on the screen based on user input
@@ -182,10 +173,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        //start = "\(latArray[startIndex])" + "," + "\(lngArray[startIndex])"
         //set the coordinates
-        
-        print("setting lat and lng")
         setLatandLng()
         if(useCurrentLocation)
         {
@@ -195,11 +183,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let routeOptionsEllen = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
             waypointIsAddress:waypointIsAddress)
-        print("In apple map controller")
-        print(routeOptions.waypointOptions.count != 0)
-        print(!fromRouteOptionsTable)
-        print("from route options table ")
-        print(fromRouteOptionsTable)
+
         //handles the case where the waypoint is generic and the user did not pick from the route options table
         if(routeOptionsEllen.waypointOptions.count != 0 && !fromRouteOptionsTable)
         {
@@ -226,11 +210,9 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
         else if (fromRouteOptionsTable)
         {
-            print("entered if else statement")
             latArray = routeOptions.latArray
             lngArray = routeOptions.lngArray
             let waypointOption = routeOptions.waypointOptions[index]
-            print("Getting info from routes table")
             latArray[wayPointIndex] = waypointOption.getLat()
             lngArray[wayPointIndex] = waypointOption.getLng()
             addressArray[wayPointIndex] = waypointOption.getAddress()
