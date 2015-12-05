@@ -120,9 +120,13 @@ public class RouteOptions{
             
             waypointOptions.append(waypoint)
         }
-        sort()
+        
+        waypointOptions.sortInPlace { (element1, element2) -> Bool in
+            return element1.getTime() < element2.getTime()
+        }
     }
     
+    /*
     //sorts the waypoint array from shortest to longest time. Uses Selection sort. Need to change this!!
     private func sort()
     {
@@ -147,5 +151,6 @@ public class RouteOptions{
             waypointOptions[minIndex] = unsortedMin
         }
     }
+*/
 
 }

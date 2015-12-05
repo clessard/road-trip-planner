@@ -157,9 +157,11 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         super.viewDidLoad()
         self.appleMapView.delegate = self
         
+        print("In apple map controller")
         //handles the case where the waypoint is generic and the user did not pick from the route options table
-        if(routeOptions.waypointOptions.count != 0 && fromRouteOptionsTable == false)
+        if(routeOptions.waypointOptions.count != 0 && !fromRouteOptionsTable)
         {
+            print("Waypoint is address: \(waypointIsAddress)")
             let routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
                 waypointIsAddress:waypointIsAddress)
             
@@ -190,9 +192,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             lngArray[wayPointIndex] = waypointOption.getLng()
             addressArray[wayPointIndex] = waypointOption.getAddress()
             pinNamesArray[wayPointIndex] = waypointOption.getName()
-            print("lat:\(latArray[wayPointIndex])")
-            print("long: \(lngArray[wayPointIndex])")
-            print("name: \(pinNamesArray[wayPointIndex])")
         }
 
         createMap()

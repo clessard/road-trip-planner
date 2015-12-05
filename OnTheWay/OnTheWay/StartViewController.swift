@@ -16,12 +16,24 @@ class StartViewController: UIViewController {
     @IBOutlet weak var EnterFinish: UITextField!
     @IBOutlet weak var CurrentLoc: UISwitch!
     @IBOutlet weak var waypointAsAddress: UISwitch!
+    @IBOutlet weak var routeTableButton: UIButton!
+    @IBAction func waypointSwitchEvent(sender: AnyObject)
+    {
+        if(waypointAsAddress.on) {
+            routeTableButton.alpha = 0.4
+            routeTableButton.enabled = false
+        } else {
+            routeTableButton.alpha = 1.0
+            routeTableButton.enabled = true
+        }
+    }
     
     let startIndex = 0;
     let stopIndex = 1;
     let wayPointIndex = 2;
     
     /*
+    @IBOutlet weak var routeTableButton: UIButton!
     @IBAction func buttonClicked(sender: AnyObject)
     {
         if useCurrentLoc.on {
@@ -33,6 +45,8 @@ class StartViewController: UIViewController {
         }
     }
     */
+    
+    
     
     //Calls this function when the tap is recognized.
     func DismissKeyboard()
@@ -48,6 +62,7 @@ class StartViewController: UIViewController {
         //Looks for single or multiple taps.
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "DismissKeyboard")
         view.addGestureRecognizer(tap)
+        
     }
 
     override func didReceiveMemoryWarning()

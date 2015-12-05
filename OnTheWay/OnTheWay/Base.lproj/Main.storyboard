@@ -5,27 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="OnTheWay" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="KOu-vW-0om"/>
-                        <viewControllerLayoutGuide type="bottom" id="k1K-ja-VT1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="MKMapView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <outlet property="mapView" destination="8bC-Xf-vdC" id="xnK-OT-des"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2760" y="-875"/>
-        </scene>
         <!--Apple Map View Controller-->
         <scene sceneID="ouV-rb-60Q">
             <objects>
@@ -39,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="pgY-g9-fQA">
-                                <rect key="frame" x="0.0" y="43" width="320" height="557"/>
+                                <rect key="frame" x="0.0" y="43" width="600" height="557"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dc-J1-hd0">
-                                <rect key="frame" x="0.0" y="0.0" width="70" height="35"/>
+                                <rect key="frame" x="0.0" y="0.0" width="58" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
@@ -52,7 +31,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lW7-J4-t3U">
-                                <rect key="frame" x="135" y="0.0" width="129" height="42"/>
+                                <rect key="frame" x="99" y="0.0" width="139" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Start to Mid"/>
                                 <connections>
@@ -60,7 +39,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQm-Hz-Xd7">
-                                <rect key="frame" x="299" y="0.0" width="130" height="42"/>
+                                <rect key="frame" x="267" y="-2" width="126" height="26.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Mid to End"/>
                                 <connections>
@@ -76,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ele-AJ-YsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2002" y="-26"/>
+            <point key="canvasLocation" x="1953" y="-32"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="hBR-cA-uvL">
@@ -105,27 +84,23 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use current location as Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-MB-rJl">
-                                <rect key="frame" x="81" y="427" width="219" height="51"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Use current location as Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="fuN-MB-rJl">
+                                <rect key="frame" x="150" y="326" width="175" height="51"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbq-Dt-MTS">
-                                <rect key="frame" x="152" y="471" width="51" height="31"/>
+                                <rect key="frame" x="93" y="336" width="51" height="31"/>
                             </switch>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
-                                <rect key="frame" x="141" y="404" width="70" height="30"/>
-                                <state key="normal" title="Get Map"/>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cAb-xj-mgF">
+                                <rect key="frame" x="93" y="293" width="51" height="31"/>
                                 <connections>
-                                    <segue destination="niW-jh-VLT" kind="presentation" identifier="appleMapSegue" id="SKg-FW-pXM"/>
+                                    <action selector="waypointSwitchEvent:" destination="QsJ-1J-HG2" eventType="valueChanged" id="WFP-wR-9D5"/>
                                 </connections>
-                            </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cAb-xj-mgF">
-                                <rect key="frame" x="152" y="333" width="51" height="31"/>
                             </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTh-9N-AJe">
-                                <rect key="frame" x="137" y="372" width="78" height="30"/>
+                                <rect key="frame" x="142" y="385" width="78" height="30"/>
                                 <state key="normal" title="Get Routes">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -133,12 +108,19 @@
                                     <segue destination="HPS-jl-iEx" kind="presentation" identifier="routesSegue" id="ANr-H6-hOF"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Waypoint is an Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fgf-Nd-5am">
-                                <rect key="frame" x="89" y="287" width="182" height="47"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Waypoint is an Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Fgf-Nd-5am">
+                                <rect key="frame" x="150" y="285" width="145" height="47"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sY-Nh-d8k">
+                                <rect key="frame" x="146" y="412" width="70" height="30"/>
+                                <state key="normal" title="Get Map"/>
+                                <connections>
+                                    <segue destination="niW-jh-VLT" kind="presentation" identifier="appleMapSegue" id="SKg-FW-pXM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -147,6 +129,7 @@
                         <outlet property="EnterFinish" destination="iGb-EF-ieZ" id="mXk-lM-3SQ"/>
                         <outlet property="EnterStart" destination="AO8-iY-fdG" id="rMK-xZ-BjJ"/>
                         <outlet property="EnterWayPoint" destination="Dk8-oN-RdM" id="ddi-GL-Xak"/>
+                        <outlet property="routeTableButton" destination="TTh-9N-AJe" id="ye9-GC-Ku6"/>
                         <outlet property="waypointAsAddress" destination="cAb-xj-mgF" id="3Dj-E3-zi5"/>
                     </connections>
                 </viewController>
@@ -229,7 +212,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="QH1-IA-Q5K"/>
-        <segue reference="f1k-Ov-Dwl"/>
+        <segue reference="HMX-S9-mYx"/>
+        <segue reference="SKg-FW-pXM"/>
     </inferredMetricsTieBreakers>
 </document>
