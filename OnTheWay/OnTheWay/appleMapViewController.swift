@@ -162,7 +162,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     //renders the map on the screen based on user input
     override func viewDidLoad()
     {
-        let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
         //var start: String = ""
         
         super.viewDidLoad()
@@ -177,6 +176,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         setLatandLng()
         if(useCurrentLocation)
         {
+            let locValue:CLLocationCoordinate2D = locationManager.location!.coordinate
             latArray[startIndex] = locValue.latitude
             lngArray[startIndex] = locValue.longitude
         }
