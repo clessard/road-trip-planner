@@ -37,15 +37,20 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     // Defines how many rows there are in the table
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routes.count
+        var tableSize = 10
+        if(routeOptions.waypointOptions.count < 11){
+            tableSize = routeOptions.waypointOptions.count
+        }
+        return tableSize
     }
     
     // Fills the table with the information from routes array
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath) as! TableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableCell", forIndexPath: indexPath)
         
         let row = indexPath.row
-        cell.tableCellData.text = routes[row]
+        cell.textLabel!.text = routeOptions.waypointOptions[row].getName()
+        cell.detailTextLabel!.text = "Time: \(routeOptions.waypointOptions[row].getAdjustedTime())"
         
         return cell
     }
@@ -53,8 +58,6 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         print("You selected cell #\(indexPath.row)!")
         index = indexPath.row
-        
-        //performSegueWithIdentifier("routeToMap", sender: self)
     }
     
     // Loads the display
@@ -67,15 +70,6 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Calculate the waypoint options
         routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLoc,
             waypointIsAddress:waypointIsAddr)
-        
-        // Fills in the table with the top 10 choices of waypoints
-        var tableSize = 10
-        if(routeOptions.waypointOptions.count < 11){
-            tableSize = routeOptions.waypointOptions.count
-        }
-        for var i = 0; i < tableSize; ++i{
-            routes.append("\(routeOptions.waypointOptions[i].getAddress())")
-        }
         
     }
     

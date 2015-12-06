@@ -59,6 +59,16 @@ public class WaypointOption {
     {
         return routeTime
     }
+    public func getAdjustedTime() -> String
+    {
+        let minutes : Int = routeTime/60
+        let hours : Int = minutes/60
+        let remainder : Int = minutes % 60
+        if remainder < 10 {
+            return "\(hours):0\(remainder)"
+        }
+        return "\(hours):\(remainder)"
+    }
     public func getDist() -> Int
     {
         return routeDistance
