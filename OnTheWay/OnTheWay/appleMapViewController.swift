@@ -162,8 +162,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     //renders the map on the screen based on user input
     override func viewDidLoad()
     {
-        //var start: String = ""
-        
         super.viewDidLoad()
         self.appleMapView.delegate = self
         
@@ -187,10 +185,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //handles the case where the waypoint is generic and the user did not pick from the route options table
         if(routeOptionsEllen.waypointOptions.count != 0 && !fromRouteOptionsTable)
         {
-            print("Waypoint is address: \(waypointIsAddress)")
-            //let routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
-                //waypointIsAddress:waypointIsAddress)
-            
             latArray = routeOptionsEllen.latArray
             lngArray = routeOptionsEllen.lngArray
             

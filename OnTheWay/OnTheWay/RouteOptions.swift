@@ -125,32 +125,5 @@ public class RouteOptions{
             return element1.getTime() < element2.getTime()
         }
     }
-    
-    /*
-    //sorts the waypoint array from shortest to longest time. Uses Selection sort. Need to change this!!
-    private func sort()
-    {
-        let count = waypointOptions.count
-        
-        for var i = 0; i < count; ++i
-        {
-            let unsortedMin = waypointOptions[i]
-            var min = waypointOptions[i]
-            var minIndex = i
-            
-            for var j = i; j < count; ++j
-            {
-                let currentPoint = waypointOptions[j]
-                if(currentPoint.isLessThan(min))
-                {
-                    min = currentPoint
-                    minIndex = j
-                }
-            }
-            waypointOptions[i] = min
-            waypointOptions[minIndex] = unsortedMin
-        }
-    }
-*/
 
 }

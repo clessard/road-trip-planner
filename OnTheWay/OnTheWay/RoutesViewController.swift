@@ -77,11 +77,9 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     {
         if (segue.identifier == "routeToMap")
         {
-            print("Moving from table to Map")
             let svc = segue.destinationViewController as! appleMapViewController
             svc.fromRouteOptionsTable = true
             svc.routeOptions = routeOptions
-            print("index: \(index)")
             svc.index = index
         }
     }

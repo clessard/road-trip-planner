@@ -18,6 +18,12 @@ public class JsonURL {
         self.url = url
     }
     
+    enum AwfulError: ErrorType {
+        case Bad
+        case Worse
+        case Terrible
+    }
+    
     //returns an NSURL from url that can be used to get a JSON file
     private func getJSONURL() -> NSURL
     {

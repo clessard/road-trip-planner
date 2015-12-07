@@ -121,6 +121,9 @@
                                     <segue destination="niW-jh-VLT" kind="presentation" identifier="appleMapSegue" id="SKg-FW-pXM"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Screen Shot 2015-10-27 at 8.53.11 PM" translatesAutoresizingMaskIntoConstraints="NO" id="mAJ-T0-lrs">
+                                <rect key="frame" x="61" y="31" width="240" height="128"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -216,6 +219,9 @@
             <point key="canvasLocation" x="1222" y="-18"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Screen Shot 2015-10-27 at 8.53.11 PM" width="366" height="168"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="HMX-S9-mYx"/>
         <segue reference="f1k-Ov-Dwl"/>

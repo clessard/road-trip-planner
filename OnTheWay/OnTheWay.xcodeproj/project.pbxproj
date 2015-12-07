@@ -15,7 +15,6 @@
 		0751D9561BAF46EA00BA91B9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0751D9551BAF46EA00BA91B9 /* Images.xcassets */; };
 		0751D9591BAF46EA00BA91B9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0751D9571BAF46EA00BA91B9 /* LaunchScreen.xib */; };
 		0751D9651BAF46EA00BA91B9 /* OnTheWayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0751D9641BAF46EA00BA91B9 /* OnTheWayTests.swift */; };
-		A8A05E381C063DFD001425EC /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E371C063DFD001425EC /* TableViewCell.swift */; };
 		A8A05E3A1C063E22001425EC /* appleMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E391C063E22001425EC /* appleMapViewController.swift */; };
 		A8A05E3C1C063E81001425EC /* JsonURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E3B1C063E81001425EC /* JsonURL.swift */; };
 		A8A05E3E1C06D701001425EC /* WaypointOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A05E3D1C06D701001425EC /* WaypointOption.swift */; };
@@ -49,7 +48,6 @@
 		1C384796365C7FC8B78758CF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		4B2A7055A7B9D003ACA47CCB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		A2E99F56B849919ADB114D0C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A8A05E371C063DFD001425EC /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewCell.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/TableViewCell.swift"; sourceTree = "<group>"; };
 		A8A05E391C063E22001425EC /* appleMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = appleMapViewController.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/appleMapViewController.swift"; sourceTree = "<group>"; };
 		A8A05E3B1C063E81001425EC /* JsonURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonURL.swift; path = "../../../../../documents/github/road-trip-planner/ontheway/ontheway/JsonURL.swift"; sourceTree = "<group>"; };
 		A8A05E3D1C06D701001425EC /* WaypointOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointOption.swift; sourceTree = "<group>"; };
@@ -101,7 +99,6 @@
 				0751D94E1BAF46EA00BA91B9 /* AppDelegate.swift */,
 				0751D9501BAF46EA00BA91B9 /* ViewController.swift */,
 				0740BB2C1BAF59C60016729A /* StartViewController.swift */,
-				A8A05E371C063DFD001425EC /* TableViewCell.swift */,
 				0751D9521BAF46EA00BA91B9 /* Main.storyboard */,
 				0740BB321BAFAE910016729A /* RoutesViewController.swift */,
 				A8A05E3B1C063E81001425EC /* JsonURL.swift */,
@@ -311,7 +308,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8A05E3A1C063E22001425EC /* appleMapViewController.swift in Sources */,
-				A8A05E381C063DFD001425EC /* TableViewCell.swift in Sources */,
 				0751D9511BAF46EA00BA91B9 /* ViewController.swift in Sources */,
 				A8A05E3E1C06D701001425EC /* WaypointOption.swift in Sources */,
 				0740BB2D1BAF59C60016729A /* StartViewController.swift in Sources */,
