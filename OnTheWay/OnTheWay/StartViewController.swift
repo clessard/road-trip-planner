@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+class StartViewController: UIViewController, UITextFieldDelegate{
     var startStr: String = ""
     var finishStr: String = ""
     var waypointStr: String = ""
@@ -37,21 +37,10 @@ class StartViewController: UIViewController {
     let stopIndex = 1;
     let wayPointIndex = 2;
     
-    /*
-    @IBOutlet weak var routeTableButton: UIButton!
-    @IBAction func buttonClicked(sender: AnyObject)
-    {
-        if useCurrentLoc.on {
-            
-            useCurrentLoc.setOn(false, animated:true)
-        } else {
-        
-            useCurrentLoc.setOn(true, animated:true)
-        }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
-    */
-    
-    
     
     //Calls this function when the tap is recognized.
     func DismissKeyboard()
@@ -62,6 +51,10 @@ class StartViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        EnterStart.delegate = self
+        EnterFinish.delegate = self
+        EnterWayPoint.delegate = self
         
         if(!startStr.isEmpty) {
             EnterStart.text = startStr
