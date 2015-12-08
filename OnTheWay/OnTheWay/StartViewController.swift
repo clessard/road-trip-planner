@@ -95,8 +95,6 @@ class StartViewController: UIViewController {
             svc.addressArray[startIndex] = EnterStart.text!
             svc.addressArray[stopIndex] = EnterFinish.text!
             svc.addressArray[wayPointIndex] = EnterWayPoint.text!
-            
-            
             if(CurrentLoc.on)
             {
                 svc.useCurrentLocation = true
@@ -105,11 +103,15 @@ class StartViewController: UIViewController {
             {
                 svc.waypointIsAddress = true
             }
+            
+            if(!waypointAsAddress.on) {
+                svc.routeOptions = RouteOptions(addressArray: svc.addressArray, useCurrentLocation: svc.useCurrentLocation,
+                    waypointIsAddress:false)
+            }
         }
         
         if (segue.identifier == "routesSegue")
         {
-            print("Entering RoutesViewController")
             let svc = segue.destinationViewController as! RoutesViewController
             svc.addressArray[startIndex] = EnterStart.text!
             svc.addressArray[stopIndex] = EnterFinish.text!

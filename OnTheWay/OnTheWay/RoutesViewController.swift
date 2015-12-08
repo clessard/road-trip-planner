@@ -15,6 +15,7 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var wayPointAddress = ""
     var useCurrentLoc = Bool()
     var waypointIsAddr = Bool()
+    var fromMap: Bool = false
     
     // Used to hold the strings in the table
     var routes = [String]()
@@ -56,7 +57,6 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("You selected cell #\(indexPath.row)!")
         index = indexPath.row
     }
     
@@ -68,8 +68,10 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         routesTableView.dataSource = self
 
         // Calculate the waypoint options
-        routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLoc,
-            waypointIsAddress:waypointIsAddr)
+        if(!fromMap) {
+            routeOptions = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLoc,
+                waypointIsAddress:waypointIsAddr)
+        }
         
     }
     

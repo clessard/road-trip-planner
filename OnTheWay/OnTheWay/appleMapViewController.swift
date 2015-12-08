@@ -47,7 +47,7 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     // Route options set by the table, index of which option chosen
     var routeOptions = RouteOptions()
-    var routeOptionsEllen = RouteOptions()
+    //var routeOptionsEllen = RouteOptions()
     var index = 0
     
     //button click that gets your directions from midPoint to the end of your route
@@ -182,13 +182,13 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
         //handles the case where the waypoint is generic and the user did not pick from the route options table
         if(!waypointIsAddress && !fromRouteOptionsTable)
         {
-            let routeOptionsEllen = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
-                waypointIsAddress:waypointIsAddress)
+            //let routeOptionsEllen = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
+                //waypointIsAddress:waypointIsAddress)
             
-            latArray = routeOptionsEllen.latArray
-            lngArray = routeOptionsEllen.lngArray
+            latArray = routeOptions.latArray
+            lngArray = routeOptions.lngArray
             
-            let waypointOption = routeOptionsEllen.waypointOptions[0]
+            let waypointOption = routeOptions.waypointOptions[0]
             let lat = waypointOption.getLat()
             let lng = waypointOption.getLng()
             let address = waypointOption.getAddress()
@@ -240,6 +240,8 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             svc.addressArray[wayPointIndex] = addressArray[wayPointIndex]
             svc.useCurrentLoc = useCurrentLocation
             svc.waypointIsAddr = waypointIsAddress
+            svc.fromMap = true
+            svc.routeOptions = routeOptions
         }
         if (segue.identifier == "backHome") {
             let svc = segue.destinationViewController as! StartViewController
