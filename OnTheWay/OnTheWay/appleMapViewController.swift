@@ -179,12 +179,12 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             lngArray[startIndex] = locValue.longitude
         }
         
-        let routeOptionsEllen = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
-            waypointIsAddress:waypointIsAddress)
-
         //handles the case where the waypoint is generic and the user did not pick from the route options table
-        if(routeOptionsEllen.waypointOptions.count != 0 && !fromRouteOptionsTable)
+        if(!waypointIsAddress && !fromRouteOptionsTable)
         {
+            let routeOptionsEllen = RouteOptions(addressArray: addressArray, useCurrentLocation: useCurrentLocation,
+                waypointIsAddress:waypointIsAddress)
+            
             latArray = routeOptionsEllen.latArray
             lngArray = routeOptionsEllen.lngArray
             
@@ -212,11 +212,6 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             addressArray[wayPointIndex] = waypointOption.getAddress()
             pinNamesArray[wayPointIndex] = waypointOption.getName()
         }
-        //if they did not gick a generic waypoint
-        else
-        {
-            
-        }
 
         createMap()
         let polyline = getPolyline()
@@ -234,6 +229,26 @@ class appleMapViewController: UIViewController, CLLocationManagerDelegate, MKMap
             return polylineRenderer
         }
         return nil
+    }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!)
+    {
+        if (segue.identifier == "backRoutes") {
+            let svc = segue.destinationViewController as! RoutesViewController
+            svc.addressArray[startIndex] = addressArray[startIndex]
+            svc.addressArray[stopIndex] = addressArray[stopIndex]
+            svc.addressArray[wayPointIndex] = addressArray[wayPointIndex]
+            svc.useCurrentLoc = useCurrentLocation
+            svc.waypointIsAddr = waypointIsAddress
+        }
+        if (segue.identifier == "backHome") {
+            let svc = segue.destinationViewController as! StartViewController
+            svc.startStr = addressArray[startIndex]
+            svc.finishStr = addressArray[stopIndex]
+            svc.waypointStr = addressArray[wayPointIndex]
+            svc.currLocBool = useCurrentLocation
+            svc.waypointBool = waypointIsAddress
+        }
     }
     
     override func didReceiveMemoryWarning()

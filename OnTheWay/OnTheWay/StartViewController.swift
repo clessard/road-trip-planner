@@ -9,6 +9,11 @@
 import UIKit
 
 class StartViewController: UIViewController {
+    var startStr: String = ""
+    var finishStr: String = ""
+    var waypointStr: String = ""
+    var currLocBool: Bool = true
+    var waypointBool: Bool = false
 
     @IBOutlet weak var OnTheWay: UIImageView!
     @IBOutlet weak var EnterStart: UITextField!
@@ -57,6 +62,18 @@ class StartViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        if(!startStr.isEmpty) {
+            EnterStart.text = startStr
+        }
+        if(!finishStr.isEmpty) {
+            EnterFinish.text = finishStr
+        }
+        if(!waypointStr.isEmpty) {
+            EnterWayPoint.text = waypointStr
+        }
+        CurrentLoc.on = currLocBool
+        waypointAsAddress.on = waypointBool
         
         // Do any additional setup after loading the view.
         //Looks for single or multiple taps.

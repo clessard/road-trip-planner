@@ -81,6 +81,29 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             svc.fromRouteOptionsTable = true
             svc.routeOptions = routeOptions
             svc.index = index
+            
+            svc.addressArray[startIndex] = addressArray[startIndex]
+            svc.addressArray[stopIndex] = addressArray[stopIndex]
+            svc.addressArray[wayPointIndex] = addressArray[wayPointIndex]
+            
+            
+            if(useCurrentLoc)
+            {
+                svc.useCurrentLocation = true
+            }
+            if(waypointIsAddr)
+            {
+                svc.waypointIsAddress = true
+            }
+        }
+        if (segue.identifier == "homeSegue")
+        {
+            let svc = segue.destinationViewController as! StartViewController
+            svc.startStr = addressArray[startIndex]
+            svc.finishStr = addressArray[stopIndex]
+            svc.waypointStr = addressArray[wayPointIndex]
+            svc.currLocBool = useCurrentLoc
+            svc.waypointBool = waypointIsAddr
         }
     }
 
