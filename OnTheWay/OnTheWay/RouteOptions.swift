@@ -70,7 +70,7 @@ public class RouteOptions{
     private func getPossibleWaypoints(start: String)
     {
         let location: String = addressArray[wayPointIndex] + "&location=" + start
-        let possibleWaypoints = JsonURL(url: "https://maps.googleapis.com/maps/api/place/radarsearch/json?radius=50000&keyword=" + location + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg")
+        let possibleWaypoints = JsonURL(url: "https://maps.googleapis.com/maps/api/place/radarsearch/json?radius=5000&keyword=" + location + "&key=AIzaSyALDVeOjIjUNIS6nXqmQ03PRZZqM6kmQUg")
         possibleWaypoints.getPossibleAddresses(&waypointAddressOptions, waypointNameOptions: &waypointNameOptions)
     }
     
